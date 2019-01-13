@@ -1,0 +1,24 @@
+{
+  "name": "formy",
+  "version": "0.0.1",
+  "description": "JQuery forms plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "formy"
+  },
+  "keywords": [
+    "Forms",
+    "Bootstrap",
+    "JQuery"
+  ],
+  "author": "jidexl21@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.2.1",
+    "jquery": "^3.3.1"
+  }
+}
