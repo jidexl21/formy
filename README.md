@@ -1,6 +1,5 @@
 
-    <h1>Formy<h1>
-
+<h1>Formy</h1>
 <p>A simple approach to creating HTML forms with BOOTSTRAP</p>
 <img src="src/docs/assets/sample.png">
 <pre>
