@@ -5,7 +5,7 @@
 <img src="src/docs/assets/sample.png">
 <pre>
 var fm = [
-     { label: "<h3>Enter Your Details Here</h3>", 
+     { label: "&lt;h3&gt;Enter Your Details Here&lt;/h3&gt;", 
 	   name: "pin" , type:"titlebox", attrs:{"class":"text-center"}
 	},
      { label: "PIN", name: "pin" },
