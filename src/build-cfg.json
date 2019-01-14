@@ -1,0 +1,9 @@
+{
+    "Scripts":[
+        {"bootstrap" :"https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"},
+        {"jquery":"https://code.jquery.com/jquery-3.3.1.slim.js"}
+    ],
+    "Css":[
+        {"bootstrap" :"https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"}
+    ]
+}
