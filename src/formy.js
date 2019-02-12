@@ -57,7 +57,8 @@ var x = {
 					console.log(xCount%(calcColumns))
                     $(this).append($("<div>", gdef).each(function () {
                         var o = $.extend(def, fm[i]); $.extend(o.typeahead, fm[i].typeahead);
-                        $(this).append($("<label>").html(fm[i].label).each(function () {
+                        var lbl = $('<div/>').text(fm[i].label).html();
+                        $(this).append($("<label>").html(lbl).each(function () {
                             var cs = '';
                             if (p.type == 'horizontal') { $(this).addClass('control-label').addClass('col-sm-' + factor[0]) }
                         }));
