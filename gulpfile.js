@@ -1,5 +1,6 @@
 var gulp = require("gulp");
 var replace = require("gulp-replace");
+var uglify = require('gulp-uglify');
 var buildCfg = require("./src/build-cfg.json"); 
 gulp.task("build", function(done){
     var cssMatcher = { 
@@ -26,6 +27,13 @@ gulp.task("build", function(done){
 
 
     done(); 
+}); 
+
+gulp.task("minify",function(done){
+    return gulp.src(['./src/formy.js'])
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/'))
+    done(); 
 })
 
-gulp.task("default",gulp.series("build"))
+gulp.task("default",gulp.series("build", "minify"))

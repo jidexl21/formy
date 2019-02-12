@@ -139,6 +139,7 @@ var x = {
                                         }
                                     }
                                 });
+                            break;
                         }
                         if (p.type == 'horizontal') {							
 							switch (o.type){
