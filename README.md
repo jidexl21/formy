@@ -9,9 +9,10 @@ var fm = [
 	},
      { label: "PIN", name: "pin" },
      { label: "Password", name: "pwd", type:"password"},
-     { label: "Upload CV", name: "upload", type:"file"},
-     { label: "Period", name: "start,end", type:"daterange"},
-     { label: "Submit", name: "submit", type:"button"}
+	 { label: "Upload CV", name: "upload", type:"file"},
+	 { label: "Send Email", name: "email", type:"switch"},
+	 { label: "Period", name: "start,end", type:"daterange"},
+	 { label: "Submit", name: "submit", type:"button"}
 ];
 $("#formarea").formy("createForm", fm);
 </pre>

@@ -57,8 +57,7 @@ var x = {
 					console.log(xCount%(calcColumns))
                     $(this).append($("<div>", gdef).each(function () {
                         var o = $.extend(def, fm[i]); $.extend(o.typeahead, fm[i].typeahead);
-                        var lbl = $('<div/>').text(fm[i].label).html();
-                        $(this).append($("<label>").html(lbl).each(function () {
+                        $(this).append($("<label>").html(fm[i].label).each(function () {
                             var cs = '';
                             if (p.type == 'horizontal') { $(this).addClass('control-label').addClass('col-sm-' + factor[0]) }
                         }));
@@ -69,12 +68,6 @@ var x = {
                                 var att = $.extend({ name: o.name, "class": "form-control" }, o.attrs)
                                 el = $("<textarea>", att).each(function () { $(this).val(o.value) });
                                 break;
-                            case "switch":
-                                var att = $.extend({ type:"checkbox", name: o.name, "id": 'switch_'+o.name }, o.attrs);
-                                el = $("<div>", {"class":"formy-switch"})
-                                .append($("<input>", att).each(function () { $(this).val(o.value) }))
-                                .append($("<label>", {"class":"label-default", "for":att.id}))
-                            break;  
                             case "daterange":
                                 var c = o.name.split(","); var end = (c.length > 1) ? c[1] : "";
                                 var i1 = { type: "text", "class": "form-control", name: c[0] }
@@ -146,7 +139,6 @@ var x = {
                                         }
                                     }
                                 });
-                            break;
                         }
                         if (p.type == 'horizontal') {							
 							switch (o.type){

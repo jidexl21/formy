@@ -2,6 +2,8 @@ var gulp = require("gulp");
 var replace = require("gulp-replace");
 var uglify = require('gulp-uglify');
 var buildCfg = require("./src/build-cfg.json"); 
+var rename = require("gulp-rename"); 
+var cleancss = require("gulp-clean-css");
 gulp.task("build", function(done){
     var cssMatcher = { 
         bootstrap: /(<link)(.)+(id=[",']bootstrap)[",'](.)+(>)/ig,
@@ -30,9 +32,18 @@ gulp.task("build", function(done){
 }); 
 
 gulp.task("minify",function(done){
-    return gulp.src(['./src/formy.js'])
+    gulp.src(['./src/formy.js'])
     .pipe(uglify())
-    .pipe(gulp.dest('dist/'))
+    .pipe(rename({suffix:"-min"}))
+    .pipe(gulp.dest('dist/assets/js')); 
+
+    gulp.src('./src/formy.css')
+    .pipe(cleancss({debug: true}, (details) => {
+      console.log(`${details.name}: ${details.stats.originalSize}`);
+      console.log(`${details.name}: ${details.stats.minifiedSize}`);
+    }))
+    .pipe(rename({suffix:"-min"}))
+    .pipe(gulp.dest('dist/assets/css'));
     done(); 
 })
 
