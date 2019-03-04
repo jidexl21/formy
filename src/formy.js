@@ -28,6 +28,34 @@
 "use strict";
 var debug = true; /*Set Debug to true to allow errors in console */
 var x = { 
+ createModal: function(obj, cfg){
+     var Id = "mdl_"+ Math.ceil(Math.random() * 9999999999999999).toString(32);
+     cfg = $.extend({title:"Title", body:"One Fine Body", onAction:function(){
+         $("#"+Id).modal("hide");
+     }}, cfg)
+    
+     var mdl = $("<div>", {"class":"modal", "tabindex":"-1", "role":"dialog", "id":Id}).append(
+        $("<div>", {"class":"modal-dialog", "role":"document"}).append($("<div>",{"class":"modal-content"}).append(
+            $("<div>", {"class":"modal-header"}).append(cfg.title)
+            .append($("<button>", {"class":"close", "data-dismiss":"modal", "aria-label":"Close"}).html("<span aria-hidden=\"true\">&times;</span>"))
+                
+        ).append(
+            $("<div>", {"class":"modal-body"})
+                .append(cfg.body)
+        ).append(
+            $("<div>", {"class":"modal-footer"})
+                .append($("<button>", {"class":"btn btn-default", "data-dismiss":"modal"}).html("Close"))
+                .append($("<button>", {"class":"btn btn-primary"}).html("Save Changes"))
+        ))
+    ).on("hidden.bs.modal", function(){
+        $(this).remove(); 
+    }).each(function(){
+        console.log($(this).find(".modal-footer .btn-primary"))
+        $(this).find(".modal-footer .btn-primary").on("click", cfg.onAction)
+    });
+    obj.append(mdl);
+    return mdl; 
+ },
  createForm: function (obj, cfg, props) {
             var  calcColumns = -1;
             var p = $.extend({ type: 'default', colratio: "1:5", columns:1}, props);
