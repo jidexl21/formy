@@ -33,6 +33,7 @@ gulp.task("build", function(done){
 
 gulp.task("minify",function(done){
     gulp.src(['./src/formy.js'])
+    .pipe(replace(/console.(log\((.+)\))/ig, "void(0)" ))
     .pipe(uglify())
     .pipe(rename({suffix:"-min"}))
     .pipe(gulp.dest('dist/assets/js')); 
