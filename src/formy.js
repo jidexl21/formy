@@ -33,6 +33,7 @@ var x = {
      cfg = $.extend({title:"Title", body:"One Fine Body", onAction:function(){
          $("#"+Id).modal("hide");
      }}, cfg)
+     console.log(cfg)
     
      var mdl = $("<div>", {"class":"modal", "tabindex":"-1", "role":"dialog", "id":Id}).append(
         $("<div>", {"class":"modal-dialog", "role":"document"}).append($("<div>",{"class":"modal-content"}).append(
@@ -72,12 +73,13 @@ var x = {
 				if(p.columns > 1 ){
 					calcColumns  = Math.round(12/p.columns);
 					clen = (calcColumns > 0) ? " col-sm-"+calcColumns:"";
-				}
+                }
+                var hrule = (p.type == 'horizontal')?" row":"";
 				var xCount= 0;
                 for (var i = 0; i < fm.length; i++) {
                     var tad = { apply: false, isLocal: true, name: "any", local: [], prefetch: "", limit: 10 }
                     var def = { type: "text", value: "", label: "Not Set", name: randname(), attrs: {}, typeahead: tad };
-					var gdef = { "class": 'form-group'+clen };
+					var gdef = { "class": 'form-group'+clen+hrule };
 					if((p.columns > 1 )&& (xCount%(calcColumns-1)) == 0 ){ $.extend(gdef,{"style":"clear:left;"}); }; 
 					//$.extend(gdef,{"style":"background:#f00"})
                     console.log(p.columns);
