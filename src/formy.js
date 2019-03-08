@@ -30,16 +30,18 @@ var debug = true; /*Set Debug to true to allow errors in console */
 var x = { 
  createModal: function(obj, cfg){
      var Id = "mdl_"+ Math.ceil(Math.random() * 9999999999999999).toString(32);
-     cfg = $.extend({title:"Title", body:"", onAction:function(data, modal){
+     cfg = $.extend({title:"Title", body:"",
+      size:"",//options: sm, lg or xl
+      onAction:function(data, modal){
        console.log(data);
        console.log($(this)); 
        console.log(modal) 
        //return false;
      }}, cfg)
-     console.log(cfg)
+     var msize =(cfg.size)?" modal-"+ cfg.size:"";
     
      var mdl = $("<div>", {"class":"modal", "tabindex":"-1", "role":"dialog", "id":Id}).append(
-        $("<div>", {"class":"modal-dialog", "role":"document"}).append($("<div>",{"class":"modal-content"}).append(
+        $("<div>", {"class":"modal-dialog"+msize, "role":"document"}).append($("<div>",{"class":"modal-content"}).append(
             $("<div>", {"class":"modal-header"}).append($("<div>", {"class":"row"}))
             .append($("<div>",{"class":"col-xs-11"}).append(cfg.title))
             .append($("<div>",{"class":"col-xs-1"})

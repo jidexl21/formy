@@ -14,7 +14,11 @@
 	<h1>Modal Example</h1>
 	</div>
 	<div class="col-sm-6">
-		<button class="btn btn-primary" id="modal-trigger">Show Modal Form</button>
+		<button class="btn btn-primary" id="modal-trigger">Show Modal Form</button><br><br>
+		<button class="btn btn-primary" id="modal-large">Show Large Form</button><br><br>
+		Extra-Large Modal forms is supported on Bootstrap 4<br/>
+		<button class="btn btn-primary" id="modal-xlarge">Show Extra-Large Form</button><br><br>
+
 	</div>
 	<div class="col-sm-6">
 	<div class="panel panel-heading">
@@ -31,10 +35,22 @@ var fm = [
      { label: "Submit", name: "submit", type:"button"}
 	];
 
-	$("#modal-trigger").click(function(){
-		var fbody = $("&lt;div&gt;").formy("createForm", fm);
-		$("body").formy("createModal", {title:"Sample Modal Form", body:fbody}).modal("show");	
-	})
+	var form1 = $("&lt;div&gt;").formy("createForm", fm ,{type:"horizontal",colratio:"1:2"})
+		var form2 = $("&lt;div&gt;").formy("createForm", fm,{type:"horizontal"});
+		var action = function(){console.log(arguments)}
+		
+		$("#modal-trigger").click(function(){
+			$("body").formy("createModal", {title:"&lt;h2&gt;Sample Modal Form&lt;/h2&gt;", body:form1, onAction:action})
+			.modal("show")
+		})
+		$("#modal-large").click(function(){
+			$("body").formy("createModal", {title:"&lt;h2&gt;Large Modal Form&lt;/h2&gt;", body:form2, size:"lg", onAction:action})
+			.modal("show")
+		})
+		$("#modal-xlarge").click(function(){
+			$("body").formy("createModal", {title:"&lt;h2&gt;Extra Large Modal Form&lt;/h2&gt;", body:form2, size:"xl", onAction:action})
+			.modal("show")
+		})
 	</pre>
 	</div>
 	</div>
@@ -53,17 +69,22 @@ var fm = [
      { label: "Period", name: "start,end", type:"daterange"},
      { label: "Submit", name: "submit", type:"button"}
 	];
-	$("#formarea").formy("createForm", fm);
-	//$("body").formy("createModal", {title:"<h4>Add New Item</h4>"}).modal("show")
+	
+	var form1 = $("<div>").formy("createForm", fm ,{type:"horizontal",colratio:"1:2"})
+	var form2 = $("<div>").formy("createForm", fm,{type:"horizontal"});
+	var action = function(){console.log(arguments)}
 	
 	$("#modal-trigger").click(function(){
-		var fbody = $("<div>").formy("createForm", fm);
-	//	console.log(fbody)
-		$("body").formy("createModal", {title:"<h2>Sample Modal Form</h2>"}).each(function(){
-			$(this).find(".modal-body").empty().formy("createForm", fm ,{type:"horizontal",colratio:"1:2"}
-			)
-		}).modal("show")
+		$("body").formy("createModal", {title:"<h2>Sample Modal Form</h2>", body:form1, onAction:action})
+		.modal("show")
 	})
-	
+	$("#modal-large").click(function(){
+		$("body").formy("createModal", {title:"<h2>Large Modal Form</h2>", body:form2, size:"lg", onAction:action})
+		.modal("show")
+	})
+	$("#modal-xlarge").click(function(){
+		$("body").formy("createModal", {title:"<h2>Extra Large Modal Form</h2>", body:form2, size:"xl", onAction:action})
+		.modal("show")
+	})
 </script>
 </html>
