@@ -30,16 +30,21 @@ var debug = true; /*Set Debug to true to allow errors in console */
 var x = { 
  createModal: function(obj, cfg){
      var Id = "mdl_"+ Math.ceil(Math.random() * 9999999999999999).toString(32);
-     cfg = $.extend({title:"Title", body:"One Fine Body", onAction:function(){
-         $("#"+Id).modal("hide");
+     cfg = $.extend({title:"Title", body:"", onAction:function(data, modal){
+       console.log(data);
+       console.log($(this)); 
+       console.log(modal) 
+       //return false;
      }}, cfg)
      console.log(cfg)
     
      var mdl = $("<div>", {"class":"modal", "tabindex":"-1", "role":"dialog", "id":Id}).append(
         $("<div>", {"class":"modal-dialog", "role":"document"}).append($("<div>",{"class":"modal-content"}).append(
-            $("<div>", {"class":"modal-header"}).append(cfg.title)
-            .append($("<button>", {"class":"close", "data-dismiss":"modal", "aria-label":"Close"}).html("<span aria-hidden=\"true\">&times;</span>"))
-                
+            $("<div>", {"class":"modal-header"}).append($("<div>", {"class":"row"}))
+            .append($("<div>",{"class":"col-xs-11"}).append(cfg.title))
+            .append($("<div>",{"class":"col-xs-1"})
+                .append($("<button>", {"class":"close", "data-dismiss":"modal", "aria-label":"Close"}).html("<span aria-hidden=\"true\">&times;</span>"))
+            )
         ).append(
             $("<div>", {"class":"modal-body"})
                 .append(cfg.body)
@@ -51,8 +56,16 @@ var x = {
     ).on("hidden.bs.modal", function(){
         $(this).remove(); 
     }).each(function(){
-        console.log($(this).find(".modal-footer .btn-primary"))
-        $(this).find(".modal-footer .btn-primary").on("click", cfg.onAction)
+        //console.log($(this).find(".modal-footer .btn-primary"))
+        $(this).find(".modal-footer .btn-primary").on("click", function(){
+            var formdata = [null, $("#"+Id)]
+            $(this).parent().parent().find("form").each(function(){
+                var fm = $(this).serializeArray();
+                formdata=[fm]
+            })
+            var result = cfg.onAction.apply($(this), formdata); 
+            if(result !== false){  $("#"+Id).modal("hide");}
+        })
     });
     obj.append(mdl);
     return mdl; 
@@ -203,7 +216,10 @@ var x = {
                         } else {
 							switch (o.type){
 								case "button": case "submit":$(this).find('label').html('&nbsp;').css('display','block'); $(this).append(el); break;
-								case "file": $(this).append($('<div>').append($('<span>',{"class":"selection text-muted"})).prepend(' ').prepend($("<label>",{class:"btn btn-default btn-file"}).append("Browse...").append(el))); 
+                                case "titlebox": $(this).empty().append(o.label).each(function(){
+									for(var key in o.attrs){$(this).attr(key,o.attrs[key])}
+								});  break; 
+                                case "file": $(this).append($('<div>').append($('<span>',{"class":"selection text-muted"})).prepend(' ').prepend($("<label>",{class:"btn btn-default btn-file"}).append("Browse...").append(el))); 
 								    el.on('change', function() {
 										var input = $(this),
 											numFiles = input.get(0).files ? input.get(0).files.length : 1,
