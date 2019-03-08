@@ -40,15 +40,15 @@ var fm = [
 		var action = function(){console.log(arguments)}
 		
 		$("#modal-trigger").click(function(){
-			$("body").formy("createModal", {title:"&lt;h2&gt;Sample Modal Form&lt;/h2&gt;", body:form1, onAction:action})
+			$("body").formy("createModal", {title:"&lt;h2&gt;Sample Modal Form&lt;/h2&gt;", body:form1, onAction:action, animated:true})
 			.modal("show")
 		})
 		$("#modal-large").click(function(){
-			$("body").formy("createModal", {title:"&lt;h2&gt;Large Modal Form&lt;/h2&gt;", body:form2, size:"lg", onAction:action})
+			$("body").formy("createModal", {title:"&lt;h2&gt;Large Modal Form&lt;/h2&gt;", body:form2, size:"lg", onAction:action, animated:true})
 			.modal("show")
 		})
 		$("#modal-xlarge").click(function(){
-			$("body").formy("createModal", {title:"&lt;h2&gt;Extra Large Modal Form&lt;/h2&gt;", body:form2, size:"xl", onAction:action})
+			$("body").formy("createModal", {title:"&lt;h2&gt;Extra Large Modal Form&lt;/h2&gt;", body:form2, size:"xl", onAction:action, animated:true})
 			.modal("show")
 		})
 	</pre>
@@ -75,15 +75,15 @@ var fm = [
 	var action = function(){console.log(arguments)}
 	
 	$("#modal-trigger").click(function(){
-		$("body").formy("createModal", {title:"<h2>Sample Modal Form</h2>", body:form1, onAction:action})
+		$("body").formy("createModal", {title:"<h2>Sample Modal Form</h2>", body:form1, onAction:action, animated:true})
 		.modal("show")
 	})
 	$("#modal-large").click(function(){
-		$("body").formy("createModal", {title:"<h2>Large Modal Form</h2>", body:form2, size:"lg", onAction:action})
+		$("body").formy("createModal", {title:"<h2>Large Modal Form</h2>", body:form2, size:"lg", onAction:action, animated:true})
 		.modal("show")
 	})
 	$("#modal-xlarge").click(function(){
-		$("body").formy("createModal", {title:"<h2>Extra Large Modal Form</h2>", body:form2, size:"xl", onAction:action})
+		$("body").formy("createModal", {title:"<h2>Extra Large Modal Form</h2>", body:form2, size:"xl", onAction:action, animated:true})
 		.modal("show")
 	})
 </script>

@@ -32,6 +32,7 @@ var x = {
      var Id = "mdl_"+ Math.ceil(Math.random() * 9999999999999999).toString(32);
      cfg = $.extend({title:"Title", body:"",
       size:"",//options: sm, lg or xl
+      animated:"false",
       onAction:function(data, modal){
        console.log(data);
        console.log($(this)); 
@@ -39,8 +40,8 @@ var x = {
        //return false;
      }}, cfg)
      var msize =(cfg.size)?" modal-"+ cfg.size:"";
-    
-     var mdl = $("<div>", {"class":"modal", "tabindex":"-1", "role":"dialog", "id":Id}).append(
+     var anim = (cfg.animated === true)?" fade":""
+     var mdl = $("<div>", {"class":"modal"+anim, "tabindex":"-1", "role":"dialog", "id":Id}).append(
         $("<div>", {"class":"modal-dialog"+msize, "role":"document"}).append($("<div>",{"class":"modal-content"}).append(
             $("<div>", {"class":"modal-header"}).append($("<div>", {"class":"row"}))
             .append($("<div>",{"class":"col-xs-11"}).append(cfg.title))
