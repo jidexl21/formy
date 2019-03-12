@@ -28,6 +28,30 @@
 "use strict";
 var debug = true; /*Set Debug to true to allow errors in console */
 var x = { 
+ addCollapse: function(obj,cfg){
+    var def  = {
+        id: (function(){ return "i"+Math.floor(Math.random() * 1000000000).toString(36)})(), 
+        name: "Simple Collapsible",
+        body:"\
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit,\
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        bsversion:3
+    }; 
+    $.extend(def, cfg); 
+    var colbehavior = (def.bsversion === 3)?"col-xs-12": "col"; 
+    var ts =  $("<div>", {"class":"rules container-fluid"}).append(
+        $("<div>", {"class":"row no-gutters"}).append(
+        $("<div>", {"class":colbehavior}).append(
+            $("<button>", {"class":"btn btn-info  btn-sm btn-block", "data-toggle":"collapse", "data-target":"#"+def.id}).text(def.name)
+            )
+        ))
+        .append(
+            $("<div>", {"class":"collapse well well-sm", "id":def.id}).append(def.body)
+        )
+    obj.append(ts);
+    return ts; 
+ },
  createModal: function(obj, cfg){
      var Id = "mdl_"+ Math.ceil(Math.random() * 9999999999999999).toString(32);
      cfg = $.extend({title:"Title", body:"",

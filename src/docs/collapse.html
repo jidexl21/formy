@@ -1,20 +1,18 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="src/formy.css"/>
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/docs.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../formy.css"/>
 	<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> 
-	<title>Formy @ BS</title>
+	<title>Formy Colllapse Example</title>
 </head>
 <!-- This is the Source file-->
 <body style='background-color:#f3f3f3'>
-<div class="bs-docs-header">
-	<div class="container">
-		<h1>Formy</h1>
-		<h4>A simple approach to creating HTML forms  with BOOTSTRAP </h4>
-	</div>
-</div>
 <div class ="container">
+<h2>
+	Add Collapse
+</h2>
 <div class="row">
 	<div class="col-sm-6">
 		<div id="formarea" class="panel panel-heading"></div>
@@ -29,10 +27,9 @@ var fm = [
 	},
      { label: "PIN", name: "pin" },
      { label: "Password", name: "pwd", type:"password"},
-	 { label: "Upload CV", name: "upload", type:"file"},
-	 { label: "Send Email", name: "email", type:"switch"},
-	 { label: "Period", name: "start,end", type:"daterange"},
-	 { label: "Submit", name: "submit", type:"button"}
+     { label: "Upload CV", name: "upload", type:"file"},
+     { label: "Period", name: "start,end", type:"daterange"},
+     { label: "Submit", name: "submit", type:"button"}
 ];
 $("#formarea").formy("createForm", fm);
 	</pre>
@@ -40,30 +37,22 @@ $("#formarea").formy("createForm", fm);
 	</div>
 </div>
 </div>
-</body> 
+</body>
 <script data-id="jquery" src="assets/js/jquery.slim.min.js"></script>
 <script data-id="bootstrap" src="assets/js/bootstrap.min.js"></script>
-<script src="formy.js"></script>
+<script src="../formy.js"></script>
 <script>
 	 var fm = [
      { label: "<h3>Enter Your Details Here</h3>", name: "pin" , type:"titlebox", attrs:{"class":"text-center"}},
      { label: "PIN", name: "pin" },
      { label: "Password", name: "pwd", type:"password"},
-	 { label: "Upload CV", name: "upload", type:"file"},
-	 { label: "Send Email", name: "email", type:"switch"},
+     { label: "Upload CV", name: "upload", type:"file"},
      { label: "Period", name: "start,end", type:"daterange"},
      { label: "Submit", name: "submit", type:"button"}
 	];
-	 $("#formarea").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
-	 
-	 $(document).ready(
-		 function(){
-			var mdl = $("body").formy("createModal", {title:"Nice Modal"}).modal("show") 
-		 }
-	 )
-	 
+	 var formNode = $("<div>").formy("createForm", fm, { type: "horizontal", colratio: "1:3" })
+	 $("#formarea")
+	 .formy("addCollapse", {"name":"Show Form", "body":formNode});
+	 //.formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
 </script>
-
-</html>cript>
-
 </html>

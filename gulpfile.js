@@ -38,6 +38,11 @@ gulp.task("minify",function(done){
     .pipe(rename({suffix:"-min"}))
     .pipe(gulp.dest('dist/assets/js')); 
 
+    //also copy unminified source
+    gulp.src(['./src/formy.js'])
+    .pipe(replace(/console.(log\((.+)\))/ig, "void(0)" ))
+    .pipe(gulp.dest('dist/assets/js'));
+
     gulp.src('./src/formy.css')
     .pipe(cleancss({debug: true}, (details) => {
       console.log(`${details.name}: ${details.stats.originalSize}`);

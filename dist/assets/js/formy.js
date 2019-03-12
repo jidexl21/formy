@@ -1,1 +1,288 @@
-!function(u){"use strict";var n={createForm:function(e,t,a){var n=-1,d=u.extend({type:"default",colratio:"1:5",columns:1},a),h=[],s=(h=u.extend(h,t),d.colratio.split(":")),f=[];f[0]=12/(parseInt(s[0])+parseInt(s[1]))*parseInt(s[0]),f[1]=12/(parseInt(s[0])+parseInt(s[1]))*parseInt(s[1]),u(e).append(u("<form>",{role:"form"}).each(function(){"horizontal"==d.type&&u(this).addClass("form-horizontal");var e="";1<d.columns&&(e=0<(n=Math.round(12/d.columns))?" col-sm-"+n:"");for(var o=0,i=0;i<h.length;i++){var c={apply:!1,isLocal:!0,name:"any",local:[],prefetch:"",limit:10},r={type:"text",value:"",label:"Not Set",name:"ctl_"+Math.round(1e6*Math.random()),attrs:{},typeahead:c},t={class:"form-group"+e};1<d.columns&&o%(n-1)==0&&u.extend(t,{style:"clear:left;"}),console.log(d.columns),console.log(n+" "+o),console.log(o%n),u(this).append(u("<div>",t).each(function(){var e,n=u.extend(r,h[i]);switch(u.extend(n.typeahead,h[i].typeahead),u(this).append(u("<label>").html(h[i].label).each(function(){"horizontal"==d.type&&u(this).addClass("control-label").addClass("col-sm-"+f[0])})),n.type){case"textarea":var t=u.extend({name:n.name,class:"form-control"},n.attrs);e=u("<textarea>",t).each(function(){u(this).val(n.value)});break;case"daterange":var a=n.name.split(","),s=1<a.length?a[1]:"",l={type:"text",class:"form-control",name:a[0]},p={type:"text",class:"form-control",name:s};e=u("<div>",{class:"input-daterange input-group","data-date-format":n.format}).append(u("<input>",l)).append(u("<span>",{class:"input-group-addon"}).text("to")).append(u("<input>",p));break;case"select":t=u.extend({type:n.type,name:n.name,class:"form-control"},n.attrs);e=u("<select>",t).each(function(){for(var e=u.extend([],n.options),t=0;t<e.length;t++){if("object"==typeof e[t]){var a=null==e[t].name?e[t].value:e[t].name;u(this).append(u("<option>",{value:a}).text(e[t].text))}"string"==typeof e[t]&&u(this).append(u("<option>").text(e[t]))}});break;case"date":t=u.extend({type:"text",name:n.name,class:"form-control input-date","data-date-format":n.format},n.attrs);e=u("<input>",t).each(function(){u(this).val(n.value)});break;case"hidden":t=u.extend({type:n.type,name:n.name},n.attrs);e=u("<input>",t).each(function(){u(this).val(n.value)});break;case"titlebox":o--;break;case"password":t=u.extend({type:n.type,name:n.name,class:"form-control"},n.attrs);e=u("<input>",t).each(function(){u(this).val(n.value)});break;case"button":case"submit":t=u.extend({type:n.type,name:n.name,class:"btn btn-default"},n.attrs);e=u("<input>",t).each(function(){u(this).val(n.label)});break;case"file":t=u.extend({type:n.type,name:n.name,style:"display: none;"},n.attrs);e=u("<input>",t);break;default:t=u.extend({type:n.type,name:n.name,class:"form-control"},n.attrs);e=u("<input>",t).each(function(){u(this).val(n.value),n.typeahead=u.extend(c,n.typeahead),n.typeahead.apply&&(u(this).addClass("typeahead").data("typeahead-name",n.typeahead.name).attr("autocomplete","off").attr("spellcheck","false"),1!=n.typeahead.isLocal&&"true"!=n.typeahead.isLocal||u(this).data("typeahead-local",n.typeahead.local).data("typeahead-isLocal",!0).data("typeahead-limit",n.typeahead.limit),0==n.typeahead.isLocal&&u(this).data("typeahead-prefetch",n.typeahead.prefetch).data("typeahead-isLocal",!1).data("typeahead-limit",n.typeahead.limit))})}if("horizontal"==d.type)switch(n.type){case"hidden":u(this).append(e);break;case"titlebox":u(this).empty().append(n.label).each(function(){for(var e in n.attrs)u(this).attr(e,n.attrs[e])});break;case"file":u(this).append(u("<div>",{class:"col-sm-"+f[1]}).append(u("<span>",{class:"selection text-muted"})).prepend(" ").prepend(u("<label>",{class:"btn btn-default btn-file"}).append("Browse...").append(e))),e.on("change",function(){var e=u(this),t=e.get(0).files?e.get(0).files.length:1,a=e.val().replace(/\\/g,"/").replace(/.*\//,"");e.trigger("fileselect",[t,a])}),e.on("fileselect",function(e,t,a){u(this).parent().parent().find(".selection").text(a)});break;case"button":case"submit":u(this).find("label").text("");default:u(this).append(u("<div>",{class:"col-sm-"+f[1]}).append(e))}else switch(n.type){case"button":case"submit":u(this).find("label").html("&nbsp;").css("display","block"),u(this).append(e);break;case"file":u(this).append(u("<div>").append(u("<span>",{class:"selection text-muted"})).prepend(" ").prepend(u("<label>",{class:"btn btn-default btn-file"}).append("Browse...").append(e))),e.on("change",function(){var e=u(this),t=e.get(0).files?e.get(0).files.length:1,a=e.val().replace(/\\/g,"/").replace(/.*\//,"");e.trigger("fileselect",[t,a])}),e.on("fileselect",function(e,t,a){u(this).parent().parent().find(".selection").text(a)});break;default:u(this).append(e)}})),o++,i==h.length-1&&u(this).append(u("<div>",{style:"clear:both"}))}}))}};u.fn.formy=function(){var e=[];e.push(this);for(var t=0;t<arguments.length;t++)0==t||e.push(arguments[t]);try{var a=n[arguments[0]].apply(this,e)}catch(e){console.error(e)}return null==a?this:a}}($);
+/**
+	Formy Library: 
+	Olajide Fagbuji
+	var options = { 
+		type:"default", // horizontal
+		colratio:"1:5"
+	}
+   var fm = [
+     { label: "PIN", name: "pin" },
+     { label: "Phone", name: "phone" }
+	];
+     $("#example").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
+	//text, textarea, daterange, select, date, hidden, titlebox, password,file,	Submit, Button
+	TO DO:
+	Add Combobox
+	Add CheckBox
+	Add Radio Button
+	Add Validations
+	Add DragnDropUpload
+	Add RangeSlider
+	Add Switch
+	Add Internationalization
+	Add Wizard
+	Add Location
+*/
+(function( $ ){
+
+"use strict";
+var debug = true; /*Set Debug to true to allow errors in console */
+var x = { 
+ addCollapse: function(obj,cfg){
+    var def  = {
+        id: (function(){ return "i"+Math.floor(Math.random() * 1000000000).toString(36)})(), 
+        name: "Simple Collapsible",
+        body:"\
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit,\
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        bsversion:3
+    }; 
+    $.extend(def, cfg); 
+    var colbehavior = (def.bsversion === 3)?"col-xs-12": "col"; 
+    var ts =  $("<div>", {"class":"rules container-fluid"}).append(
+        $("<div>", {"class":"row no-gutters"}).append(
+        $("<div>", {"class":colbehavior}).append(
+            $("<button>", {"class":"btn btn-info  btn-sm btn-block", "data-toggle":"collapse", "data-target":"#"+def.id}).text(def.name)
+            )
+        ))
+        .append(
+            $("<div>", {"class":"collapse well well-sm", "id":def.id}).append(def.body)
+        )
+    obj.append(ts);
+    return ts; 
+ },
+ createModal: function(obj, cfg){
+     var Id = "mdl_"+ Math.ceil(Math.random() * 9999999999999999).toString(32);
+     cfg = $.extend({title:"Title", body:"",
+      size:"",//options: sm, lg or xl
+      animated:"false",
+      onAction:function(data, modal){
+       void(0);
+       void(0); 
+       void(0) 
+       //return false;
+     }}, cfg)
+     var msize =(cfg.size)?" modal-"+ cfg.size:"";
+     var anim = (cfg.animated === true)?" fade":""
+     var mdl = $("<div>", {"class":"modal"+anim, "tabindex":"-1", "role":"dialog", "id":Id}).append(
+        $("<div>", {"class":"modal-dialog"+msize, "role":"document"}).append($("<div>",{"class":"modal-content"}).append(
+            $("<div>", {"class":"modal-header"}).append($("<div>", {"class":"row"}))
+            .append($("<div>",{"class":"col-xs-11"}).append(cfg.title))
+            .append($("<div>",{"class":"col-xs-1"})
+                .append($("<button>", {"class":"close", "data-dismiss":"modal", "aria-label":"Close"}).html("<span aria-hidden=\"true\">&times;</span>"))
+            )
+        ).append(
+            $("<div>", {"class":"modal-body"})
+                .append(cfg.body)
+        ).append(
+            $("<div>", {"class":"modal-footer"})
+                .append($("<button>", {"class":"btn btn-default", "data-dismiss":"modal"}).html("Close"))
+                .append($("<button>", {"class":"btn btn-primary"}).html("Save Changes"))
+        ))
+    ).on("hidden.bs.modal", function(){
+        $(this).remove(); 
+    }).each(function(){
+        //void(0)
+        $(this).find(".modal-footer .btn-primary").on("click", function(){
+            var formdata = [null, $("#"+Id)]
+            $(this).parent().parent().find("form").each(function(){
+                var fm = $(this).serializeArray();
+                formdata=[fm]
+            })
+            var result = cfg.onAction.apply($(this), formdata); 
+            if(result !== false){  $("#"+Id).modal("hide");}
+        })
+    });
+    obj.append(mdl);
+    return mdl; 
+ },
+ createForm: function (obj, cfg, props) {
+            var  calcColumns = -1;
+            var p = $.extend({ type: 'default', colratio: "1:5", columns:1}, props);
+            var randname = function () { return "ctl_" + Math.round(Math.random() * 1000000); }
+            //var fm = [{ type: "text", value: "", label: "Field Name", name: "fldname" }]
+            var fm = [];
+            var fm = $.extend(fm, cfg)
+            var cols = p.colratio.split(":"); var factor = [];
+            factor[0] = (12 / (parseInt(cols[0]) + parseInt(cols[1]))) * parseInt(cols[0]);
+            factor[1] = (12 / (parseInt(cols[0]) + parseInt(cols[1]))) * parseInt(cols[1]);
+            $(obj).append($("<form>", { role: "form" }).each(function () {
+                if (p.type == 'horizontal') $(this).addClass('form-horizontal');
+				var clen =''; 
+				if(p.columns > 1 ){
+					calcColumns  = Math.round(12/p.columns);
+					clen = (calcColumns > 0) ? " col-sm-"+calcColumns:"";
+                }
+                var hrule = (p.type == 'horizontal')?" row":"";
+				var xCount= 0;
+                for (var i = 0; i < fm.length; i++) {
+                    var tad = { apply: false, isLocal: true, name: "any", local: [], prefetch: "", limit: 10 }
+                    var def = { type: "text", value: "", label: "Not Set", name: randname(), attrs: {}, typeahead: tad };
+					var gdef = { "class": 'form-group'+clen+hrule };
+					if((p.columns > 1 )&& (xCount%(calcColumns-1)) == 0 ){ $.extend(gdef,{"style":"clear:left;"}); }; 
+					//$.extend(gdef,{"style":"background:#f00"})
+                    void(0);
+                    void(0)
+					void(0)
+                    $(this).append($("<div>", gdef).each(function () {
+                        var o = $.extend(def, fm[i]); $.extend(o.typeahead, fm[i].typeahead);
+                        var lbl = $('<div/>').text(fm[i].label).html();
+                        $(this).append($("<label>").html(lbl).each(function () {
+                            var cs = '';
+                            if (p.type == 'horizontal') { $(this).addClass('control-label').addClass('col-sm-' + factor[0]) }
+                        }));
+                        var el;
+
+                        switch (o.type) {
+                            case "textarea":
+                                var att = $.extend({ name: o.name, "class": "form-control" }, o.attrs)
+                                el = $("<textarea>", att).each(function () { $(this).val(o.value) });
+                                break;
+                            case "switch":
+                                var att = $.extend({ type:"checkbox", name: o.name, "id": 'switch_'+o.name }, o.attrs);
+                                el = $("<div>", {"class":"formy-switch"})
+                                .append($("<input>", att).each(function () { $(this).val(o.value) }))
+                                .append($("<label>", {"class":"label-default", "for":att.id}))
+                            break;  
+                            case "daterange":
+                                var c = o.name.split(","); var end = (c.length > 1) ? c[1] : "";
+                                var i1 = { type: "text", "class": "form-control", name: c[0] }
+                                var i2 = { type: "text", "class": "form-control", name: end }
+                                el = $("<div>", { "class": "input-daterange input-group", "data-date-format": o.format })
+                                    .append($("<input>", i1))
+                                    .append($("<span>", { "class": "input-group-addon" }).text("to"))
+                                    .append($("<input>", i2))
+                                break;
+                            case "select":
+                                var att = $.extend({ type: o.type, name: o.name, "class": 'form-control' }, o.attrs)
+                                el = $("<select>", att).each(function () {
+                                    var options = $.extend([], o.options);
+                                    for (var i = 0; i < options.length; i++) {
+                                        if (typeof options[i] == "object") {
+                                            var val = (options[i].name == undefined) ? options[i].value : options[i].name;
+                                            $(this).append($("<option>", { value: val }).text(options[i].text));
+                                        }
+                                        if (typeof options[i] == "string") {
+                                            $(this).append($("<option>").text(options[i]));
+                                        }
+                                    }
+                                });
+                                break;
+                            case "date":
+                                //alert(o.format);
+                                var att = $.extend({ type: "text", name: o.name, "class": 'form-control input-date', "data-date-format": o.format }, o.attrs)
+                                el = $("<input>", att).each(function () {
+                                    $(this).val(o.value);
+                                });
+                                break;
+                            case "hidden":
+                                var att = $.extend({ type: o.type, name: o.name }, o.attrs)
+                                el = $("<input>", att).each(function () {
+                                    $(this).val(o.value);
+                                });
+                                break;                            
+							case "titlebox": xCount--; break;
+							case "password": 
+							    var att = $.extend({ type: o.type, name: o.name, "class": 'form-control' }, o.attrs)
+                                el = $("<input>", att).each(function () {
+                                    $(this).val(o.value);
+								})
+							break;
+							case "button": 
+							case "submit": 
+							    var att = $.extend({ type: o.type, name: o.name, "class": 'btn btn-default' }, o.attrs)
+                                el = $("<input>", att).each(function () {
+                                    $(this).val(o.label);
+								})
+							break;
+							case "file": 
+							    var att = $.extend({ type: o.type, name: o.name, style:"display: none;" }, o.attrs)
+                                el = $("<input>", att)
+							break;
+                            default:
+                                var att = $.extend({ type: o.type, name: o.name, "class": 'form-control' }, o.attrs)
+                                el = $("<input>", att).each(function () {
+                                    $(this).val(o.value);
+                                    o.typeahead = $.extend(tad, o.typeahead);
+                                    if (o.typeahead.apply) {
+                                        $(this).addClass("typeahead").data("typeahead-name", o.typeahead.name).attr("autocomplete", "off").attr("spellcheck", "false");
+                                        if (o.typeahead.isLocal == true || o.typeahead.isLocal == "true") {
+                                            // alert(JSON.stringify(o.typeahead.local))
+                                            $(this).data("typeahead-local", o.typeahead.local).data("typeahead-isLocal", true).data("typeahead-limit", o.typeahead.limit)
+                                        }
+                                        if (o.typeahead.isLocal == false) {
+                                            $(this).data("typeahead-prefetch", o.typeahead.prefetch).data("typeahead-isLocal", false).data("typeahead-limit", o.typeahead.limit);
+                                        }
+                                    }
+                                });
+                            break;
+                        }
+                        if (p.type == 'horizontal') {							
+							switch (o.type){
+								
+								case "hidden":$(this).append(el); break;
+								case "titlebox": $(this).empty().append(o.label).each(function(){
+									for(var key in o.attrs){$(this).attr(key,o.attrs[key])}
+								});  break; 
+								case "file": $(this).append($('<div>', { "class": "col-sm-" + factor[1] }).append($('<span>',{"class":"selection text-muted"})).prepend(' ').prepend($("<label>",{class:"btn btn-default btn-file"}).append("Browse...").append(el))); 
+								    el.on('change', function() {
+										var input = $(this),
+											numFiles = input.get(0).files ? input.get(0).files.length : 1,
+											label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+
+											input.trigger('fileselect', [numFiles, label]);
+									});
+									 el.on('fileselect', function(event, numFiles, label) {
+										$(this).parent().parent().find(".selection").text(label)
+									});
+								break; 
+								case "button": case "submit":$(this).find('label').text(''); 
+								default: $(this).append($('<div>', { "class": "col-sm-" + factor[1] }).append(el)); break;
+							}
+                        } else {
+							switch (o.type){
+								case "button": case "submit":$(this).find('label').html('&nbsp;').css('display','block'); $(this).append(el); break;
+                                case "titlebox": $(this).empty().append(o.label).each(function(){
+									for(var key in o.attrs){$(this).attr(key,o.attrs[key])}
+								});  break; 
+                                case "file": $(this).append($('<div>').append($('<span>',{"class":"selection text-muted"})).prepend(' ').prepend($("<label>",{class:"btn btn-default btn-file"}).append("Browse...").append(el))); 
+								    el.on('change', function() {
+										var input = $(this),
+											numFiles = input.get(0).files ? input.get(0).files.length : 1,
+											label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+
+											input.trigger('fileselect', [numFiles, label]);
+									});
+									 el.on('fileselect', function(event, numFiles, label) {
+										$(this).parent().parent().find(".selection").text(label)
+									});
+								break; 
+								default: $(this).append(el); break;
+							}
+                        }
+
+                    }))
+					xCount++;
+					if(i==(fm.length-1))
+					{$(this).append($("<div>",{"style":"clear:both"}))}
+                }
+            }))
+
+        }
+}
+
+
+$.fn.formy = function () {
+        var args = [];
+        args.push(this)
+        for (var i = 0; i < arguments.length; i++) {
+            if (i == 0) { } else { args.push(arguments[i]); }
+        }
+        try {
+            var res = x[arguments[0]].apply(this, args);
+        } catch (ex) { if (debug) console.error(ex); }
+        return (res == null) ? this : res;
+};
+
+})($)
