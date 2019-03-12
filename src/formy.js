@@ -26,6 +26,15 @@
 (function( $ ){
 
 "use strict";
+var camelToSentence = function (txt){
+    var r = txt.charAt(0).toUpperCase() + txt.substr(1);
+    return r
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
+        .replace(/([a-z])([0-9])/gi, '$1 $2')
+        .replace(/([0-9])([a-z])/gi, '$1 $2');
+  }
+  
 var debug = true; /*Set Debug to true to allow errors in console */
 var x = { 
  addCollapse: function(obj,cfg){
@@ -107,7 +116,7 @@ var x = {
             var cols = p.colratio.split(":"); var factor = [];
             factor[0] = (12 / (parseInt(cols[0]) + parseInt(cols[1]))) * parseInt(cols[0]);
             factor[1] = (12 / (parseInt(cols[0]) + parseInt(cols[1]))) * parseInt(cols[1]);
-            $(obj).append($("<form>", { role: "form" }).each(function () {
+            $(obj).append($("<form>", { role: "form", "class":"row" }).each(function () {
                 if (p.type == 'horizontal') $(this).addClass('form-horizontal');
 				var clen =''; 
 				if(p.columns > 1 ){
@@ -127,7 +136,7 @@ var x = {
 					console.log(xCount%(calcColumns))
                     $(this).append($("<div>", gdef).each(function () {
                         var o = $.extend(def, fm[i]); $.extend(o.typeahead, fm[i].typeahead);
-                        var lbl = $('<div/>').text(fm[i].label).html();
+                        var lbl = $('<div/>').text(camelToSentence(fm[i].label)).html();
                         $(this).append($("<label>").html(lbl).each(function () {
                             var cs = '';
                             if (p.type == 'horizontal') { $(this).addClass('control-label').addClass('col-sm-' + factor[0]) }
@@ -193,7 +202,7 @@ var x = {
 							case "submit": 
 							    var att = $.extend({ type: o.type, name: o.name, "class": 'btn btn-default' }, o.attrs)
                                 el = $("<input>", att).each(function () {
-                                    $(this).val(o.label);
+                                    $(this).val(camelToSentence(o.label));
 								})
 							break;
 							case "file": 
@@ -222,7 +231,7 @@ var x = {
 							switch (o.type){
 								
 								case "hidden":$(this).append(el); break;
-								case "titlebox": $(this).empty().append(o.label).each(function(){
+								case "titlebox": $(this).empty().append(camelToSentence(o.label)).each(function(){
 									for(var key in o.attrs){$(this).attr(key,o.attrs[key])}
 								});  break; 
 								case "file": $(this).append($('<div>', { "class": "col-sm-" + factor[1] }).append($('<span>',{"class":"selection text-muted"})).prepend(' ').prepend($("<label>",{class:"btn btn-default btn-file"}).append("Browse...").append(el))); 
@@ -243,7 +252,7 @@ var x = {
                         } else {
 							switch (o.type){
 								case "button": case "submit":$(this).find('label').html('&nbsp;').css('display','block'); $(this).append(el); break;
-                                case "titlebox": $(this).empty().append(o.label).each(function(){
+                                case "titlebox": $(this).empty().append(camelToSentence(o.label)).each(function(){
 									for(var key in o.attrs){$(this).attr(key,o.attrs[key])}
 								});  break; 
                                 case "file": $(this).append($('<div>').append($('<span>',{"class":"selection text-muted"})).prepend(' ').prepend($("<label>",{class:"btn btn-default btn-file"}).append("Browse...").append(el))); 
