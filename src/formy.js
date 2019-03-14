@@ -18,7 +18,6 @@
 	Add Validations
 	Add DragnDropUpload
 	Add RangeSlider
-	Add Switch
 	Add Internationalization
 	Add Wizard
 	Add Location
@@ -48,12 +47,12 @@ var x = {
         bsversion:3
     }; 
     $.extend(def, cfg); 
-    var colbehavior = (def.bsversion === 3)?"col-xs-12": "col"; 
+    var colbehavior = (def.bsversion === 3)?"col-xs-12": "col";
+    var sett = {"class":"btn btn-info  btn-sm btn-block", "data-toggle":"collapse", "data-target":"#"+def.id};
+    if(def.parent){sett["data-parent"] = "#"+def.parent; }; 
     var ts =  $("<div>", {"class":"rules container-fluid"}).append(
         $("<div>", {"class":"row no-gutters"}).append(
-        $("<div>", {"class":colbehavior}).append(
-            $("<button>", {"class":"btn btn-info  btn-sm btn-block", "data-toggle":"collapse", "data-target":"#"+def.id}).text(def.name)
-            )
+        $("<div>", {"class":colbehavior}).append($("<button>", sett).text(def.name) )
         ))
         .append(
             $("<div>", {"class":"collapse well well-sm", "id":def.id}).append(def.body)
@@ -94,11 +93,13 @@ var x = {
     }).each(function(){
         //console.log($(this).find(".modal-footer .btn-primary"))
         $(this).find(".modal-footer .btn-primary").on("click", function(){
-            var formdata = [null, $("#"+Id)]
-            $(this).parent().parent().find("form").each(function(){
-                var fm = $(this).serializeArray();
-                formdata=[fm]
-            })
+            var formdata = [null, $("#"+Id)]; 
+            var forms = [];
+            $(this).parent().parent().find("form").each(function(n){
+                forms.push($(this).serializeArray()); 
+                //formdata=[fm]
+            }); 
+            formdata = (forms.length == 1)? [forms[0]] : [forms, $("#"+Id)];
             var result = cfg.onAction.apply($(this), formdata); 
             if(result !== false){  $("#"+Id).modal("hide");}
         })
@@ -108,7 +109,7 @@ var x = {
  },
  createForm: function (obj, cfg, props) {
             var  calcColumns = -1;
-            var p = $.extend({ type: 'default', colratio: "1:5", columns:1}, props);
+            var p = $.extend({ type: 'default', colratio: "1:5", columns:1, bsversion:3}, props);
             var randname = function () { return "ctl_" + Math.round(Math.random() * 1000000); }
             //var fm = [{ type: "text", value: "", label: "Field Name", name: "fldname" }]
             var fm = [];
@@ -116,7 +117,9 @@ var x = {
             var cols = p.colratio.split(":"); var factor = [];
             factor[0] = (12 / (parseInt(cols[0]) + parseInt(cols[1]))) * parseInt(cols[0]);
             factor[1] = (12 / (parseInt(cols[0]) + parseInt(cols[1]))) * parseInt(cols[1]);
-            $(obj).append($("<form>", { role: "form", "class":"row" }).each(function () {
+            var objclas ={ role: "form"}; 
+            if(p.bsversion == 4) objclas["class"] ="row"; 
+            $(obj).append($("<form>", objclas).each(function () {
                 if (p.type == 'horizontal') $(this).addClass('form-horizontal');
 				var clen =''; 
 				if(p.columns > 1 ){
@@ -131,16 +134,18 @@ var x = {
 					var gdef = { "class": 'form-group'+clen+hrule };
 					if((p.columns > 1 )&& (xCount%(calcColumns-1)) == 0 ){ $.extend(gdef,{"style":"clear:left;"}); }; 
 					//$.extend(gdef,{"style":"background:#f00"})
-                    console.log(p.columns);
-                    console.log(calcColumns + " "+ xCount)
-					console.log(xCount%(calcColumns))
                     $(this).append($("<div>", gdef).each(function () {
                         var o = $.extend(def, fm[i]); $.extend(o.typeahead, fm[i].typeahead);
                         var lbl = $('<div/>').text(camelToSentence(fm[i].label)).html();
-                        $(this).append($("<label>").html(lbl).each(function () {
-                            var cs = '';
-                            if (p.type == 'horizontal') { $(this).addClass('control-label').addClass('col-sm-' + factor[0]) }
-                        }));
+                        if(o.type != "hidden"){
+                            $(this).append($("<label>").html(lbl).each(function () {
+                                var cs = '';
+                                if (p.type == 'horizontal') { $(this).addClass('control-label').addClass('col-sm-' + factor[0]) }
+                            }));
+                        }else{
+                            $(this).css("display","none");
+                        }
+                        
                         var el;
 
                         switch (o.type) {
@@ -156,8 +161,9 @@ var x = {
                             break;  
                             case "daterange":
                                 var c = o.name.split(","); var end = (c.length > 1) ? c[1] : "";
-                                var i1 = { type: "text", "class": "form-control", name: c[0] }
-                                var i2 = { type: "text", "class": "form-control", name: end }
+                                var v = o.value.split(","); var val2 = (v.length > 1) ? v[1] : "";
+                                var i1 = { type: "text", "class": "form-control", name: c[0], value:v[0] }
+                                var i2 = { type: "text", "class": "form-control", name: v[0], value:v[1] }
                                 el = $("<div>", { "class": "input-daterange input-group", "data-date-format": o.format })
                                     .append($("<input>", i1))
                                     .append($("<span>", { "class": "input-group-addon" }).text("to"))
@@ -170,10 +176,12 @@ var x = {
                                     for (var i = 0; i < options.length; i++) {
                                         if (typeof options[i] == "object") {
                                             var val = (options[i].name == undefined) ? options[i].value : options[i].name;
-                                            $(this).append($("<option>", { value: val }).text(options[i].text));
+                                            var set = (o.value === val)?{ value: val, selected:"selected" }:{ value: val };
+                                            $(this).append($("<option>", set).text(options[i].text));
                                         }
                                         if (typeof options[i] == "string") {
-                                            $(this).append($("<option>").text(options[i]));
+                                            var set = (o.value === options[i])?{ value: options[i], selected:"selected" }:{ value: val };
+                                            $(this).append($("<option>", set).text(options[i]));
                                         }
                                     }
                                 });
@@ -186,6 +194,7 @@ var x = {
                                 });
                                 break;
                             case "hidden":
+                                xCount--;
                                 var att = $.extend({ type: o.type, name: o.name }, o.attrs)
                                 el = $("<input>", att).each(function () {
                                     $(this).val(o.value);
@@ -231,8 +240,9 @@ var x = {
 							switch (o.type){
 								
 								case "hidden":$(this).append(el); break;
-								case "titlebox": $(this).empty().append(camelToSentence(o.label)).each(function(){
-									for(var key in o.attrs){$(this).attr(key,o.attrs[key])}
+								case "titlebox": $(this).empty().append(o.label).each(function(){
+                                    for(var key in o.attrs){$(this).attr(key,o.attrs[key])}                             
+                                    //$(this).append("Nice one")
 								});  break; 
 								case "file": $(this).append($('<div>', { "class": "col-sm-" + factor[1] }).append($('<span>',{"class":"selection text-muted"})).prepend(' ').prepend($("<label>",{class:"btn btn-default btn-file"}).append("Browse...").append(el))); 
 								    el.on('change', function() {
@@ -252,8 +262,9 @@ var x = {
                         } else {
 							switch (o.type){
 								case "button": case "submit":$(this).find('label').html('&nbsp;').css('display','block'); $(this).append(el); break;
-                                case "titlebox": $(this).empty().append(camelToSentence(o.label)).each(function(){
-									for(var key in o.attrs){$(this).attr(key,o.attrs[key])}
+                                case "titlebox": $(this).empty().append(o.label).each(function(){
+                                    for(var key in o.attrs){$(this).attr(key,o.attrs[key])}
+                                    $(this).css("clear","both")
 								});  break; 
                                 case "file": $(this).append($('<div>').append($('<span>',{"class":"selection text-muted"})).prepend(' ').prepend($("<label>",{class:"btn btn-default btn-file"}).append("Browse...").append(el))); 
 								    el.on('change', function() {
