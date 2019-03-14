@@ -161,8 +161,9 @@ var x = {
                             break;  
                             case "daterange":
                                 var c = o.name.split(","); var end = (c.length > 1) ? c[1] : "";
-                                var i1 = { type: "text", "class": "form-control", name: c[0] }
-                                var i2 = { type: "text", "class": "form-control", name: end }
+                                var v = o.value.split(","); var val2 = (v.length > 1) ? v[1] : "";
+                                var i1 = { type: "text", "class": "form-control", name: c[0], value:v[0] }
+                                var i2 = { type: "text", "class": "form-control", name: v[0], value:v[1] }
                                 el = $("<div>", { "class": "input-daterange input-group", "data-date-format": o.format })
                                     .append($("<input>", i1))
                                     .append($("<span>", { "class": "input-group-addon" }).text("to"))
@@ -175,10 +176,12 @@ var x = {
                                     for (var i = 0; i < options.length; i++) {
                                         if (typeof options[i] == "object") {
                                             var val = (options[i].name == undefined) ? options[i].value : options[i].name;
-                                            $(this).append($("<option>", { value: val }).text(options[i].text));
+                                            var set = (o.value === val)?{ value: val, selected:"selected" }:{ value: val };
+                                            $(this).append($("<option>", set).text(options[i].text));
                                         }
                                         if (typeof options[i] == "string") {
-                                            $(this).append($("<option>").text(options[i]));
+                                            var set = (o.value === options[i])?{ value: options[i], selected:"selected" }:{ value: val };
+                                            $(this).append($("<option>", set).text(options[i]));
                                         }
                                     }
                                 });
