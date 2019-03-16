@@ -179,10 +179,11 @@ var x = {
                                             var set = (o.value === val)?{ value: val, selected:"selected" }:{ value: val };
                                             $(this).append($("<option>", set).text(options[i].text));
                                         }
-                                        if (typeof options[i] == "string") {
+                                        if ((typeof options[i] == "string")||(typeof options[i] == "number")) {
                                             var set = (o.value === options[i])?{ value: options[i], selected:"selected" }:{ value: val };
                                             $(this).append($("<option>", set).text(options[i]));
                                         }
+                                        
                                     }
                                 });
                                 break;
