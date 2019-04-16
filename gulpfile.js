@@ -15,7 +15,7 @@ gulp.task("docs", function(done){
         });
         fs.writeFileSync('./src/docs/examples.html', llist.join("<br/>\r\n")); 
     }); 
-    gulp.src("src/docs/*.html").pipe(gulp.dest("dist/"));
+    gulp.src("src/docs/*.html").pipe(gulp.dest("dist/docs/"));
     done(); 
 }); 
 
