@@ -4,6 +4,21 @@ var uglify = require('gulp-uglify');
 var buildCfg = require("./src/build-cfg.json"); 
 var rename = require("gulp-rename"); 
 var cleancss = require("gulp-clean-css");
+var fs = require("fs"); 
+var path = require("path"); 
+gulp.task("docs", function(done){
+    fs.readdir("./src/docs", function (err, files) {
+        if(err){console.log(err); return; }
+        var llist = []; 
+        files.filter((o)=>{ return !(o.indexOf(".html") == -1); }).forEach(element => {
+            llist.push(`<a href="${element}">${element}</a>`)
+        });
+        fs.writeFileSync('./src/docs/examples.html', llist.join("<br/>\r\n")); 
+    }); 
+    gulp.src("src/docs/*.html").pipe(gulp.dest("dist/"));
+    done(); 
+}); 
+
 gulp.task("build", function(done){
     var cssMatcher = { 
         bootstrap: /(<link)(.)+(id=[",']bootstrap)[",'](.)+(>)/ig,
@@ -25,7 +40,7 @@ gulp.task("build", function(done){
         gulp.src(["src/index.html"])
         .pipe(replace(scriptMatcher[k], newLink))
         .pipe(gulp.dest('dist/'));        
-    })
+    }); 
 
 
     done(); 
@@ -36,12 +51,12 @@ gulp.task("minify",function(done){
     .pipe(replace(/console.(log\((.+)\))/ig, "void(0)" ))
     .pipe(uglify())
     .pipe(rename({suffix:"-min"}))
-    .pipe(gulp.dest('dist/assets/js')); 
+    .pipe(gulp.dest('dist/')); 
 
     //also copy unminified source
     gulp.src(['./src/formy.js'])
     .pipe(replace(/console.(log\((.+)\))/ig, "void(0)" ))
-    .pipe(gulp.dest('dist/assets/js'));
+    .pipe(gulp.dest('dist/'));
 
     gulp.src('./src/formy.css')
     .pipe(cleancss({debug: true}, (details) => {
@@ -49,8 +64,8 @@ gulp.task("minify",function(done){
       console.log(`${details.name}: ${details.stats.minifiedSize}`);
     }))
     .pipe(rename({suffix:"-min"}))
-    .pipe(gulp.dest('dist/assets/css'));
+    .pipe(gulp.dest('dist/'));
     done(); 
-})
+}); 
 
-gulp.task("default",gulp.series("build", "minify"))
+gulp.task("default",gulp.series("build", "docs", "minify"))
