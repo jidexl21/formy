@@ -15,33 +15,34 @@ gulp.task("docs", function(done){
         });
         fs.writeFileSync('./src/docs/examples.html', llist.join("<br/>\r\n")); 
     }); 
-    gulp.src("src/docs/*.html").pipe(gulp.dest("dist/docs/"));
     done(); 
 }); 
 
 gulp.task("build", function(done){
     var cssMatcher = { 
-        bootstrap: /(<link)(.)+(id=[",']bootstrap)[",'](.)+(>)/ig,
+        bootstrap: /(<link)(.)+(id=[",']bootstrap)[",'](.)+(>)/ig
     };
     var scriptMatcher = { 
         bootstrap: /(<script)(.)+(id=[",']bootstrap)[",'](.)+(>)/ig,
-        jquery: /(<script)(.)+(id=[",']jquery)[",'](.)+(>)/ig,
+        jquery: /(<script)(.)+(id=[",']jquery)[",'](.)+(>)/ig
     }; 
-    buildCfg.Css.map(function(itm){
+
+     var blob_0 = gulp.src(["src/index.html"]);
+     var blob_1= gulp.src(["src/docs/*.html"]);
+     buildCfg.Css.map(function(itm){
         var k = Object.keys(itm)[0]
         var newLink = `<link rel="stylesheet" type="text/css" href="${itm[k]}" />`;
-        gulp.src(["src/index.html"])
-        .pipe(replace(cssMatcher[k], newLink))
-        .pipe(gulp.dest('dist/'));        
-    });
-    buildCfg.Scripts.map(function(itm){
+        blob_0 = blob_0.pipe(replace(cssMatcher[k], newLink));
+        blob_1 = blob_1.pipe(replace(cssMatcher[k], newLink));
+     });
+     buildCfg.Scripts.map(function(itm){
         var k = Object.keys(itm)[0]
         var newLink = `<script type="text/javascript" src="${itm[k]}"></script>`;
-        gulp.src(["src/index.html"])
-        .pipe(replace(scriptMatcher[k], newLink))
-        .pipe(gulp.dest('dist/'));        
-    }); 
-
+        blob_0 = blob_0.pipe(replace(scriptMatcher[k], newLink));
+        blob_1 = blob_1.pipe(replace(scriptMatcher[k], newLink));
+     });
+     blob_0.pipe(gulp.dest('dist/'))
+     blob_1.pipe(gulp.dest('dist/docs/'))
 
     done(); 
 }); 
