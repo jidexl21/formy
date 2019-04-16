@@ -13,8 +13,6 @@
 	//text, textarea, daterange, select, date, hidden, titlebox, password,file,	Submit, Button
 	TO DO:
 	Add Combobox
-	Add CheckBox
-	Add Radio Button
 	Add Validations
 	Add DragnDropUpload
 	Add RangeSlider
@@ -154,10 +152,23 @@ var x = {
                                 el = $("<textarea>", att).each(function () { $(this).val(o.value) });
                                 break;
                             case "switch":
-                                var att = $.extend({ type:"checkbox", name: o.name, "id": 'switch_'+o.name }, o.attrs);
+                                var att = $.extend({ type:"checkbox", name: o.name, "id": 'switch_'+o.name, bscolor:"default"}, o.attrs);
                                 el = $("<div>", {"class":"formy-switch"})
                                 .append($("<input>", att).each(function () { $(this).val(o.value) }))
-                                .append($("<label>", {"class":"label-default", "for":att.id}))
+                                .append($("<label>", {"class":"label-"+att.bscolor, "for":att.id}))
+                                
+                            break;  
+                            case "checkbox":
+                                var att = $.extend({ type:"checkbox", name: o.name }, o.attrs);
+                                var isChecked = (o.value === true)?' checked="checked"':"";
+                                el = $("<label>", {"class":"formy-checkbox"})
+                                .append($("<input"+isChecked+">", att)).append($("<span>", {"class":"checkmark"}))
+                            break;  
+                            case "radio":
+                                var att = $.extend({ type:"radio", name: o.name }, o.attrs);
+                                var isChecked = (o.value === true)?' checked="checked"':"";
+                                el = $("<label>", {"class":"formy-radio"})
+                                .append($("<input"+isChecked+">", att)).append($("<span>", {"class":"checkmark"}))
                             break;  
                             case "daterange":
                                 var c = o.name.split(","); var end = (c.length > 1) ? c[1] : "";

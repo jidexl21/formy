@@ -19,20 +19,15 @@
 	<div class="panel panel-heading">
 		<h3>Source</h3>
 	<pre>
-var fm = [
-     { label: "&lt;h3&gt;Enter Your Details Here&lt;/h3&gt;",type:"titlebox", attrs:{"class":"text-center"}},
-	 { label: "Name", name: "name" },
-	 { label: "Title", name: "title", type:"select", options:["Mr", "Mrs", "Miss", "Master", "Chief", "Dr"] },	 
-	 { label: "Division", name: "division", type:"select", options:[
-		 {text:"Unspecified",name:null},
-		 {text:"Army",name:1},
-		 {text:"Navy",name:2},
-		 {text:"Airforce",name:3},
-		] },	 
-	 { label: "Password", name: "pwd", type:"password"},
-     { label: "Upload CV", name: "upload", type:"file"},
-     { label: "Period", name: "start,end", type:"daterange"},
-     { label: "Submit", name: "submit", type:"button"}
+        var fm = [
+     { label: "&lt;h3&gt;Which of the options is the tallest mountain in Africa?&lt;/h3&gt;", type:"titlebox", attrs:{"class":"text-left"}},
+     { label: "Mt. Everest", name: "mt", type:"radio"}, 
+     { label: "Mt. Kilimanjaro", name: "mt", type:"radio", attrs:{"float":"left"}}, 
+     { label: "Mt. Everest", name: "mt", type:"radio"},
+     { label: "&lt;h3&gt;Other Settings&lt;/h3&gt;", type:"titlebox",attrs:{"class":"col-sm-12"}},
+     { label: "Allow Cookies?", type:"checkbox"},
+     { label: "&lt;hr&gt;", type:"titlebox",attrs:{"class":"col-sm-12"}},
+     { label: "Enable Shortcuts", type:"switch"},
 	];
      $("#formarea").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
 	</pre>
