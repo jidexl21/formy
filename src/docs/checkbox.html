@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/docs.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../formy.css"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> 
+	<title>Formy @ BS</title>
+</head>
+<!-- This is the Source file-->
+<body style='background-color:#f3f3f3'>
+    <small><a href="examples.html">Back to examples</a></small>
+<div class ="container">
+<div class="row">
+	<div class="col-sm-6">
+		<div id="formarea" class="panel panel-heading"></div>
+	</div>
+	<div class="col-sm-6">
+	<div class="panel panel-heading">
+		<h3>Source</h3>
+	<pre>
+var fm = [
+     { label: "&lt;h3&gt;Enter Your Details Here&lt;/h3&gt;",type:"titlebox", attrs:{"class":"text-center"}},
+	 { label: "Name", name: "name" },
+	 { label: "Title", name: "title", type:"select", options:["Mr", "Mrs", "Miss", "Master", "Chief", "Dr"] },	 
+	 { label: "Division", name: "division", type:"select", options:[
+		 {text:"Unspecified",name:null},
+		 {text:"Army",name:1},
+		 {text:"Navy",name:2},
+		 {text:"Airforce",name:3},
+		] },	 
+	 { label: "Password", name: "pwd", type:"password"},
+     { label: "Upload CV", name: "upload", type:"file"},
+     { label: "Period", name: "start,end", type:"daterange"},
+     { label: "Submit", name: "submit", type:"button"}
+	];
+     $("#formarea").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
+	</pre>
+	</div>
+	</div>
+</div>
+</div>
+</body>
+<script data-id="jquery" src="assets/js/jquery.slim.min.js"></script>
+<script data-id="bootstrap" src="assets/js/bootstrap.min.js"></script>
+<script src="../formy.js"></script>
+<script>
+	 var fm = [
+     { label: "<h3>Which of the options is the tallest mountain in Africa?</h3>", type:"titlebox", attrs:{"class":"text-left"}},
+     { label: "Mt. Everest", name: "mt", type:"radio"}, 
+     { label: "Mt. Kilimanjaro", name: "mt", type:"radio", attrs:{"float":"left"}}, 
+     { label: "Mt. Everest", name: "mt", type:"radio"},
+     { label: "<h3>Other Settings</h3>", type:"titlebox",attrs:{"class":"col-sm-12"}},
+     { label: "Allow Cookies?", type:"checkbox"},
+     { label: "<hr/>", type:"titlebox",attrs:{"class":"col-sm-12"}},
+     { label: "Enable Shortcuts", type:"switch"},
+	];
+     $("#formarea").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
+</script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="assets/css/docs.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../formy.css"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> 
+	<title>Formy @ BS</title>
+</head>
+<body style='background-color:#f3f3f3'>
+
+<div class ="container">
+<div class="row">
+		<small><a href="examples.html">Back to examples</a></small>
+	<div class="col-sm-12">
+	<h1>Multiple Columns Example</h1>
+	</div>
+	<div class="col-sm-12">
+		<div id="formarea" class="panel panel-heading"></div>
+	</div>
+	<div class="col-sm-12">
+	<div class="panel panel-heading">
+		<h3>Source</h3>
+	<pre>
+var fm = [
+     { label: "&lt;h3&gt;Enter Your Details Here&lt;/h3&gt;", 
+	   name: "pin" , type:"titlebox", attrs:{"class":"text-center"}
+	},
+     { label: "PIN", name: "pin" },
+     { label: "Password", name: "pwd", type:"password"},
+     { label: "Upload CV", name: "upload", type:"file"},
+     { label: "Period", name: "start,end", type:"daterange"},
+     { label: "Submit", name: "submit", type:"button"}
+	];
+     $("#formarea").formy("createForm", fm, {columns:3});
+	</pre>
+	</div>
+	</div>
+</div>
+</div>
+</body>
+<script src="assets/js/jquery.slim.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="../formy.js"></script>
+<script>
+	 var fm = [
+     { label: "<h3>Enter Your Details Here</h3>", name: "pin" , type:"titlebox", attrs:{"class":"text-center"}},
+     { label: "PIN", name: "pin" },
+     { label: "Password", name: "pwd", type:"password"},
+     { label: "Upload CV", name: "upload", type:"file"},
+     { label: "Period", name: "start,end", type:"daterange"},
+     { label: "Submit", name: "submit", type:"button"}
+	];
+     $("#formarea").formy("createForm", fm, {columns:3});
+</script>
+</html>
