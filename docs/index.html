@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/docs.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../dist/formy-min.css"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> 
+	<title>Formy @ BS</title>
+</head>
+<!-- This is the Source file-->
+<body style='background-color:#f3f3f3'>
+<div class="bs-docs-header">
+	<div class="container">
+		<h1>Formy</h1>
+		<h4>A simple approach to creating HTML forms  with BOOTSTRAP </h4>
+	</div>
+</div>
+<div class ="container">
+		<small><a href="examples.html">examples</a></small>
+<div class="row">
+	<div class="col-sm-6">
+		<div id="formarea" class="panel panel-heading"></div>
+	</div>
+	<div class="col-sm-6">
+	<div class="panel panel-heading">
+		<h3>Source</h3>
+	<pre>
+var fm = [
+     { label: "&lt;h3&gt;Enter Your Details Here&lt;/h3&gt;",type:"titlebox", attrs:{"class":"text-center"}},
+	 { label: "Name", name: "name" },
+	 { label: "Title", name: "title", type:"select", options:["Mr", "Mrs", "Miss", "Master", "Chief", "Dr"] },	 
+	 { label: "Division", name: "division", type:"select", options:[
+		 {text:"Unspecified",name:null},
+		 {text:"Army",name:1},
+		 {text:"Navy",name:2},
+		 {text:"Airforce",name:3},
+		] },	 
+	 { label: "Password", name: "pwd", type:"password"},
+     { label: "Upload CV", name: "upload", type:"file"},
+     { label: "Period", name: "start,end", type:"daterange"},
+     { label: "Submit", name: "submit", type:"button"}
+	];
+     $("#formarea").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
+	</pre>
+	</div>
+	</div>
+</div>
+</div>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="../dist/formy.js"></script>
+<script>
+	 var fm = [
+     { label: "<h3>Enter Your Details Here</h3>", type:"titlebox", attrs:{"class":"text-center"}},
+	 { label: "Name", name: "name" },
+	 { label: "Title", name: "title", type:"select", options:["Mr", "Mrs", "Miss", "Master", "Chief", "Dr"] },	 
+	 { label: "Division", name: "division", type:"select", options:[
+		 {text:"Unspecified",name:null},
+		 {text:"Army",name:1},
+		 {text:"Navy",name:2},
+		 {text:"Airforce",name:3},
+		] },	 
+	 { label: "Password", name: "pwd", type:"password"},
+     { label: "Upload CV", name: "upload", type:"file"},
+     { label: "Period", name: "start,end", type:"daterange"},
+     { label: "Submit", name: "submit", type:"button"}
+	];
+     $("#formarea").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
+</script>
+</html>

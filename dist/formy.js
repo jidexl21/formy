@@ -1,16 +1,7 @@
 /**
-	Formy Library: 
-	Olajide Fagbuji
-	var options = { 
-		type:"default", // horizontal
-		colratio:"1:5"
-	}
-   var fm = [
-     { label: "PIN", name: "pin" },
-     { label: "Phone", name: "phone" }
-	];
-     $("#example").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
-	//text, textarea, daterange, select, date, hidden, titlebox, password,file,	Submit, Button
+   formy.js v0.0.2
+   author: Olajide Fagbuji<jidexl21@gmail.com>
+    
 	TO DO:
 	Add Combobox
 	Add Validations

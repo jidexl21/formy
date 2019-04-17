@@ -6,7 +6,11 @@ var rename = require("gulp-rename");
 var cleancss = require("gulp-clean-css");
 var fs = require("fs"); 
 var path = require("path"); 
+
+var vs = require("./package.json"); 
+
 gulp.task("docs", function(done){
+    
     fs.readdir("./src/docs", function (err, files) {
         if(err){console.log(err); return; }
         var llist = []; 
@@ -39,16 +43,18 @@ gulp.task("build", function(done){
         var k = Object.keys(itm)[0]
         var newLink = `<script type="text/javascript" src="${itm[k]}"></script>`;
         blob_0 = blob_0.pipe(replace(scriptMatcher[k], newLink));
-        blob_1 = blob_1.pipe(replace(scriptMatcher[k], newLink));
+        blob_1 = blob_1.pipe(replace(scriptMatcher[k], newLink))
+        .pipe(replace(/\.{2}\/formy\.js/ig, "../dist/formy.js")).pipe(replace(/\.{2}\/formy\.css/ig, "../dist/formy-min.css"));
      });
      blob_0.pipe(gulp.dest('dist/'))
-     blob_1.pipe(gulp.dest('dist/docs/'))
+     blob_1.pipe(gulp.dest('docs/'))
 
     done(); 
 }); 
 
 gulp.task("minify",function(done){
     gulp.src(['./src/formy.js'])
+    .pipe(replace(/\@version/ig, vs.version))
     .pipe(replace(/console.(log\((.+)\))/ig, "void(0)" ))
     .pipe(uglify())
     .pipe(rename({suffix:"-min"}))
@@ -56,10 +62,12 @@ gulp.task("minify",function(done){
 
     //also copy unminified source
     gulp.src(['./src/formy.js'])
+    .pipe(replace(/\@version/ig, vs.version)) // add current version from package.json
     .pipe(replace(/console.(log\((.+)\))/ig, "void(0)" ))
     .pipe(gulp.dest('dist/'));
 
     gulp.src('./src/formy.css')
+    .pipe(replace(/\@version/ig, vs.version))
     .pipe(cleancss({debug: true}, (details) => {
       console.log(`${details.name}: ${details.stats.originalSize}`);
       console.log(`${details.name}: ${details.stats.minifiedSize}`);
