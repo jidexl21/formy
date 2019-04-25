@@ -19,6 +19,17 @@ gulp.task("docs", function(done){
         });
         fs.writeFileSync('./src/docs/examples.html', llist.join("<br/>\r\n")); 
     }); 
+    fs.readdir("./src/docs/", function (err, files) {
+        var llist = []; 
+        files.filter((o)=>{ return !(o.indexOf(".js") == -1); }).forEach(element => {
+            var el = element.replace(/\.js$/i, ""); 
+            llist.push(`<li class="dropdown-item"><a href="javascript:void(0)" data-src="${el}">${el}</a></li>`)
+        });
+        var indx = '<!--@examplesLinks -->\r\n'+llist.join("\r\n")+'\r\n<!--\/@examplesLinks -->';
+        gulp.src("./src/docs/index.html")
+        .pipe(replace(/<!--@examplesLinks -->((.*)(\r\n|\n))*(.*)<!--\/@examplesLinks -->/im, indx))
+        .pipe(gulp.dest('./src/docs/'))
+    })
     done(); 
 }); 
 
