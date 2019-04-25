@@ -2,6 +2,16 @@
    formy.js v@version
    author: Olajide Fagbuji<jidexl21@gmail.com>
 */
+
+row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+.row.no-gutters > [class^="col-"],
+.row.no-gutters > [class*=" col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
 .formy-switch > input[type="checkbox"] {
     display: none;   
 }
