@@ -63,6 +63,7 @@ var fm = [
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="../dist/formy.js"></script>
 <script>
+	
 	 var fm = [
      { label: "<h3>Enter Your Details Here</h3>", name: "pin" , type:"titlebox", attrs:{"class":"text-center"}},
      { label: "PIN", name: "pin" },
@@ -87,6 +88,10 @@ var fm = [
 	$("#modal-xlarge").click(function(){
 		$("body").formy("createModal", {title:"<h2>Extra Large Modal Form</h2>", body:form2, size:"xl", onAction:action, animated:true})
 		.modal("show")
-	})
+	}); 
+	//example specific code
+	if($("#modal-trigger").length === 0){$("#formArea").append($("<button>",{"class":"btn btn-default outline-primary", id:"modal-trigger"}).text("Button"))}; 
+	if($("#modal-large").length === 0){$("#formArea").append($("<button>",{"class":"btn btn-default outline-primary", id:"modal-large"}).text("Button"))}; 
+	if($("#modal-xlarge").length === 0){$("#formArea").append($("<button>",{"class":"btn btn-default outline-primary", id:"xmodal-large"}).text("Button"))}; 
 </script>
 </html>
