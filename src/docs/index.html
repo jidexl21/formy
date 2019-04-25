@@ -1,30 +1,108 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<link rel="stylesheet" data-id="bootstrap" type="text/css" href="assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" id="bootstrap" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/docs.min.css"/>
 	<link rel="stylesheet" type="text/css" href="../formy.css"/>
 	<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> 
 	<title>Formy @ BS</title>
+<style>
+
+	body.bs3 nav.navbar[data-version=bs3], body.bs4 nav.navbar[data-version=bs4],body.bs2 nav.navbar[data-version=bs2]{
+		display:block; 
+	}
+	
+	body.bs3 nav.navbar[data-version=bs4],
+	body.bs3 nav.navbar[data-version=bs2],
+	body.bs4 nav.navbar[data-version=bs3],
+	body.bs4 nav.navbar[data-version=bs2]{
+		display:none; 
+	}
+</style>
 </head>
 <!-- This is the Source file-->
-<body style='background-color:#f3f3f3'>
-<div class="bs-docs-header">
-	<div class="container">
+<body style='background-color:#f3f3f3' class="bs3">
+<div class="bs-docs-header" style="margin-bottom:0px">
+	<div id="docs-header" class="container">
 		<h1>Formy</h1>
 		<h4>A simple approach to creating HTML forms  with BOOTSTRAP </h4>
 	</div>
 </div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" data-version="bs4">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  
+    <a class="nav-link disabled"  href="javascript:void(0)">Currently Styled with: <span class="bsv"></span></a>
+		<form class="form-inline my-2 my-lg-0 versions">
+		  <button type="button" class="btn btn-outline-dark" data-bsversion="bs3">Bootstrap 3</button>&nbsp;
+		  <button type="button" class="btn btn-outline-dark" data-bsversion="bs4">Bootstrap 4</button>
+		</form>
+
+	<!--
+    <form class="form-inline my-2 my-lg-0">
+		<a class="nav-link disabled"  href="javascript:void(0)">Currently Styled with: <span class="bsv"></span></a>
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="setbs('bs3')">Bootstrap 3</button>&nbsp;
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="setbs('bs4')">Bootstrap 4</button>
+    </form>
+	-->
+  </div>
+</nav>
+
+<nav class="navbar navbar-default" data-version="bs3">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="javascript:void(0)">Currently Styled with: <span class="bsv"></span></a></li>
+        <li>
+		<form class="navbar-form navbar-right versions">
+			<button type="button" class="btn btn-default" data-bsversion="bs3">Bootstrap 3</button>&nbsp;
+			<button type="button" class="btn btn-default" data-bsversion="bs4">Bootstrap 4</button>
+		  </form>
+        </li>
+	  </ul>
+     
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
 <div class ="container">
-		<small><a href="examples.html">examples</a></small>
+	<div class="dropdown" id="emenu">
+	  <button class="btn btn-default dropdown-toggle" type="button" id="examplesMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		Examples
+		<span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="examplesMenu">
+		<!--@examplesLinks -->
+<li class="dropdown-item"><a href="javascript:void(0)" data-src="checkbox">checkbox</a></li>
+<li class="dropdown-item"><a href="javascript:void(0)" data-src="collapse">collapse</a></li>
+<li class="dropdown-item"><a href="javascript:void(0)" data-src="modal">modal</a></li>
+<!--/@examplesLinks -->
+	  </ul>
+	</div>
 <div class="row">
 	<div class="col-sm-6">
-		<div id="formarea" class="panel panel-heading"></div>
+		<div id="formarea" class="panel panel-heading card card-body"></div>
 	</div>
 	<div class="col-sm-6">
-	<div class="panel panel-heading">
+	<div class="panel panel-heading card card-body">
 		<h3>Source</h3>
-	<pre>
+	<pre id="src" class="card bg-light mb-3">
 var fm = [
      { label: "&lt;h3&gt;Enter Your Details Here&lt;/h3&gt;",type:"titlebox", attrs:{"class":"text-center"}},
 	 { label: "Name", name: "name" },
@@ -48,8 +126,52 @@ var fm = [
 </div>
 </body>
 <script data-id="jquery" src="../../node_modules/jquery/dist/jquery.slim.min.js"></script>
-<script data-id="bootstrap" src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+		document.write("<script type='application/x-suppress'>");
+		 var bsScripts = { 
+			bs4: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js",
+			bs3:"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+			//,bs2:"https://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"
+		  };
+		var bsLinks = { 
+			bs4: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+			bs3:"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+			//,bs2:"https://stackpath.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+		  };
+		function loadBS(code)
+		{
+			var currVerCode = code;  
+			//load CSS
+			var current = bsLinks[currVerCode];
+			var curr = $("#bootstrap").attr("href"); 
+			$("#bootstrap").attr("href", current);
+			$('body').attr("class",currVerCode); 
+			console.log(currVerCode); 		  
+			$(".bsv").text(currVerCode)
+			// load scripts
+			var runSecond = document.createElement("script");
+			runSecond.setAttribute("src", bsScripts[code]); 
+			//console.log(bsScripts[code]);
+			document.body.appendChild(runSecond);
+			if(code==="bs4"){
+				var popperSrc = document.createElement("script");
+				popperSrc.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"); 
+				document.body.appendChild(popperSrc);
+			}
+			
+			
+			
+
+
+			
+		}
+		var cv = localStorage.getItem("bsv"); 
+		if(!cv){ loadBS("bs3");}else{	loadBS(cv); }
+
+</script>
+<script data-id="bootstrap" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../formy.js"></script>
+
 <script>
 	 var fm = [
      { label: "<h3>Enter Your Details Here</h3>", type:"titlebox", attrs:{"class":"text-center"}},
@@ -67,5 +189,120 @@ var fm = [
      { label: "Submit", name: "submit", type:"button"}
 	];
      $("#formarea").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
+	 
 </script>
-</html>
+	
+<script type="text/javascript">
+	(function(){
+		var iter = 0; 
+
+
+		 
+		function togglebs(){
+		  var script = document.querySelector("[data-id=bootstrap]"); 
+
+		  var all = Object.keys(bsLinks); 
+		  var current = ""; var currScript = "" ; var currVerCode  = ""; 
+		 
+		  var curr = document.getElementById("bootstrap").getAttribute("href"); 
+		 
+		  for(key in bsLinks){
+			if(curr === bsLinks[key]){ 
+				iter++; 
+				currVerCode = all[iter%all.length]; 
+				current = bsLinks[currVerCode];
+				currScript = bsScripts[currVerCode];
+				break;
+				}
+			 currVerCode = (currVerCode) ? currVerCode : all[0];
+			 current = (current)? current: bsLinks[currVerCode]; 
+			 currScript = (currScript)? currScript: bsScripts[currVerCode]; 
+				
+		  }
+		  document.getElementById("bootstrap").setAttribute("href", current);
+		  load_script(bsScripts[currVerCode], function(){ console.log('loaded bs: '+currVerCode)})	  
+		  //script.setAttribute("src", currScript);
+		   document.querySelector('body').setAttribute('class',currVerCode); 
+			console.log(currVerCode); 		  
+		  
+		  //console.log("version set to: "+ all[iter%all.length]); 		  
+		  //var currAttr = curr.getAttribute("href"); 
+		  //console.log(currScript)
+		  $(".bsv").text(currVerCode)
+		}; 
+	
+		var setbs = function(currVerCode){
+			  var script = document.querySelector("[data-id=bootstrap]"); 
+
+			  var current = bsLinks[currVerCode];  var currScript = bsScripts[currVerCode]; 
+			  var curr = document.getElementById("bootstrap").getAttribute("href"); 
+			 
+			  document.getElementById("bootstrap").setAttribute("href", current);
+			  load_script(bsScripts[currVerCode], function(){ console.log('loaded bs: '+currVerCode)})	  
+			  document.querySelector('body').setAttribute('class',currVerCode); 
+			  console.log(currVerCode); 		  
+			  $(".bsv").text(currVerCode)
+			}; 
+	
+		var loadExample = function(e){
+			var str = $(e.target).data("src"); 
+			var scr =(str)? str+".js":"checkbox.js"; 
+			$(".bs-docs-header").collapse();
+			//clear formArea ...
+			$("#formarea").empty().append(''); 
+			load_script(scr, function(obj){
+				$("pre").empty().append($("<iframe>",{frameborder:'0', width:'100%',height:'300px', src:scr}));
+			}); 
+		}
+		
+		var load_script = function(src, callback) {
+		  var head = document.getElementsByTagName('head')[0];
+
+		  //use class, as we can't reference by id
+		  var element = head.getElementsByClassName("json")[0];
+
+		  try {
+			element.parentNode.removeChild(element);
+		  } catch (e) {
+			//
+		  }
+
+		  var script = document.createElement('script');
+		  script.type = 'text/javascript';
+		  script.src = src;
+		  script.className = "json";
+		  script.async = false;
+		  head.appendChild(script);
+
+		  //call the postload function after a slight delay to allow the json to load
+		  window.setTimeout(function(){
+			callback.apply(this)
+		  }, 100)
+		}
+		var setBs = function(e){ 	
+			e.preventDefault(); 
+			e.stopPropagation(); 
+			console.log($(this).data("bsversion"));
+			localStorage.setItem("bsv", $(this).data("bsversion")); 
+			document.location.reload();
+		}; 
+		
+		$(".versions button").click(setBs)
+		$("#emenu a").on("click", loadExample); 
+		var setVersion = function(){
+			var currVerCode= $(this).attr("id").replace("set", ""); 
+			  var script = document.querySelector("[data-id=bootstrap]"); 
+			  var current = bsLinks[currVerCode];  var currScript = bsScripts[currVerCode]; 
+			  var curr = $("#bootstrap").attr("href"); 
+			  $("#bootstrap").attr("href", current);
+			  load_script(bsScripts[currVerCode], function(){ console.log('loaded bs: '+currVerCode)})	  
+			  document.querySelector('body').setAttribute('class',currVerCode); 
+			  //console.log(currVerCode); 		  
+			  $(".bsv").text(currVerCode)
+		}
+		$("#setbs3").on("click", setVersion); 
+		$("#setbs4").on("click", setVersion); 
+	})(); 
+		
+</script>
+</html>	
