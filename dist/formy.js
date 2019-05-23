@@ -1,5 +1,5 @@
 /**
-   formy.js v0.0.3
+   formy.js v0.0.4
    author: Olajide Fagbuji<jidexl21@gmail.com>
     
 	TO DO:
@@ -51,8 +51,9 @@ var x = {
  },
  createModal: function(obj, cfg){
      var Id = "mdl_"+ Math.ceil(Math.random() * 9999999999999999).toString(32);
-     cfg = $.extend({title:"Title", body:"",
-      size:"",//options: sm, lg or xl
+     cfg = $.extend({title:"Title", body:"", actionButton:true, actionText:"Save Changes",
+      size:"",//options: sm, lg or xl,
+      closeButton:true, closeText:"close",
       animated:"false",
       onAction:function(data, modal){
        void(0);
@@ -75,7 +76,11 @@ var x = {
         ).append(
             $("<div>", {"class":"modal-footer"})
                 .append($("<button>", {"class":"btn btn-default", "data-dismiss":"modal"}).html("Close"))
-                .append($("<button>", {"class":"btn btn-primary"}).html("Save Changes"))
+                .each(function(){
+                    if(cfg.actionButton === false) return;
+                   $(this).append($("<button>", {"class":"btn btn-primary"}).html(cfg.actionText))
+                })
+                
         ))
     ).on("hidden.bs.modal", function(){
         $(this).remove(); 
@@ -86,7 +91,6 @@ var x = {
             var forms = [];
             $(this).parent().parent().find("form").each(function(n){
                 forms.push($(this).serializeArray()); 
-                //formdata=[fm]
             }); 
             formdata = (forms.length == 1)? [forms[0]] : [forms, $("#"+Id)];
             var result = cfg.onAction.apply($(this), formdata); 
@@ -108,6 +112,7 @@ var x = {
             factor[1] = (12 / (parseInt(cols[0]) + parseInt(cols[1]))) * parseInt(cols[1]);
             var objclas ={ role: "form"}; 
             if(p.bsversion == 4) objclas["class"] ="row"; 
+            var hasFile = false; 
             $(obj).append($("<form>", objclas).each(function () {
                 if (p.type == 'horizontal') $(this).addClass('form-horizontal');
 				var clen =''; 
@@ -126,6 +131,7 @@ var x = {
                     $(this).append($("<div>", gdef).each(function () {
                         var o = $.extend(def, fm[i]); $.extend(o.typeahead, fm[i].typeahead);
                         var lbl = $('<div/>').text(camelToSentence(fm[i].label)).html();
+                        if(o.type == "file"){hasFile == true; };
                         if(o.type != "hidden"){
                             $(this).append($("<label>").html(lbl).each(function () {
                                 var cs = '';
@@ -219,7 +225,7 @@ var x = {
 							break;
 							case "file": 
 							    var att = $.extend({ type: o.type, name: o.name, style:"display: none;" }, o.attrs)
-                                el = $("<input>", att)
+                                el = $("<input>", att);
 							break;
                             default:
                                 var att = $.extend({ type: o.type, name: o.name, "class": 'form-control' }, o.attrs)
@@ -291,7 +297,10 @@ var x = {
 					{$(this).append($("<div>",{"style":"clear:both"}))}
                 }
             }))
-
+            //if(hasFile){
+                void(0)
+               // obj.find("form").attr("method","post").attr("enctype","multipart/form-data")
+            //}
         }
 }
 

@@ -112,6 +112,7 @@ var x = {
             factor[1] = (12 / (parseInt(cols[0]) + parseInt(cols[1]))) * parseInt(cols[1]);
             var objclas ={ role: "form"}; 
             if(p.bsversion == 4) objclas["class"] ="row"; 
+            var hasFile = false; 
             $(obj).append($("<form>", objclas).each(function () {
                 if (p.type == 'horizontal') $(this).addClass('form-horizontal');
 				var clen =''; 
@@ -130,6 +131,7 @@ var x = {
                     $(this).append($("<div>", gdef).each(function () {
                         var o = $.extend(def, fm[i]); $.extend(o.typeahead, fm[i].typeahead);
                         var lbl = $('<div/>').text(camelToSentence(fm[i].label)).html();
+                        if(o.type == "file"){hasFile = true; };
                         if(o.type != "hidden"){
                             $(this).append($("<label>").html(lbl).each(function () {
                                 var cs = '';
@@ -223,7 +225,7 @@ var x = {
 							break;
 							case "file": 
 							    var att = $.extend({ type: o.type, name: o.name, style:"display: none;" }, o.attrs)
-                                el = $("<input>", att)
+                                el = $("<input>", att);
 							break;
                             default:
                                 var att = $.extend({ type: o.type, name: o.name, "class": 'form-control' }, o.attrs)
@@ -295,7 +297,9 @@ var x = {
 					{$(this).append($("<div>",{"style":"clear:both"}))}
                 }
             }))
-
+            if(hasFile){
+                obj.find("form").attr("method","post").attr("enctype","multipart/form-data")
+            }
         }
 }
 
