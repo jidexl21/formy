@@ -37,7 +37,7 @@ var x = {
     }; 
     $.extend(def, cfg); 
     var colbehavior = (def.bsversion === 3)?"col-xs-12": "col";
-    var sett = { type:"button","class":"btn btn-info  btn-sm btn-block", "data-toggle":"collapse", "data-target":"#"+def.id};
+    var sett = {"class":"btn btn-info  btn-sm btn-block", "data-toggle":"collapse", "data-target":"#"+def.id};
     if(def.parent){sett["data-parent"] = "#"+def.parent; }; 
     var ts =  $("<div>", {"class":"rules container-fluid"}).append(
         $("<div>", {"class":"row no-gutters"}).append(

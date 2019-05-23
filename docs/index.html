@@ -144,9 +144,8 @@ var fm = [
 			//load CSS
 			var current = bsLinks[currVerCode];
 			var curr = $("#bootstrap").attr("href"); 
-			$("#bootstrap").attr("href", current);
-			$('body').attr("class",currVerCode); 
-			console.log(currVerCode); 		  
+			$("#bootstrap").attr("href", current); $('body').attr("class",currVerCode); 
+			console.log(currVerCode + ": "+current); 		  
 			$(".bsv").text(currVerCode)
 			// load scripts
 			var runSecond = document.createElement("script");
@@ -165,8 +164,11 @@ var fm = [
 
 			
 		}
-		var cv = localStorage.getItem("bsv"); 
-		if(!cv){ loadBS("bs3");}else{	loadBS(cv); }
+		$(document).ready(function(){
+			var cv = localStorage.getItem("bsv"); 
+			if(!cv){ loadBS("bs3");}else{	loadBS(cv); }
+		})
+
 
 </script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -235,7 +237,7 @@ var fm = [
 			  var script = document.querySelector("[data-id=bootstrap]"); 
 
 			  var current = bsLinks[currVerCode];  var currScript = bsScripts[currVerCode]; 
-			  var curr = document.getElementById("bootstrap").getAttribute("href"); 
+			  //var curr = document.getElementById("bootstrap").getAttribute("href"); 
 			 
 			  document.getElementById("bootstrap").setAttribute("href", current);
 			  load_script(bsScripts[currVerCode], function(){ console.log('loaded bs: '+currVerCode)})	  
@@ -279,6 +281,7 @@ var fm = [
 			callback.apply(this)
 		  }, 100)
 		}
+		
 		var setBs = function(e){ 	
 			e.preventDefault(); 
 			e.stopPropagation(); 
@@ -287,22 +290,25 @@ var fm = [
 			document.location.reload();
 		}; 
 		
-		$(".versions button").click(setBs)
+		$(".versions button").click(setBs); 
 		$("#emenu a").on("click", loadExample); 
 		var setVersion = function(){
 			var currVerCode= $(this).attr("id").replace("set", ""); 
 			  var script = document.querySelector("[data-id=bootstrap]"); 
 			  var current = bsLinks[currVerCode];  var currScript = bsScripts[currVerCode]; 
 			  var curr = $("#bootstrap").attr("href"); 
-			  $("#bootstrap").attr("href", current);
+				$("#bootstrap").attr("href", current);
+				console.log(current);
 			  load_script(bsScripts[currVerCode], function(){ console.log('loaded bs: '+currVerCode)})	  
 			  document.querySelector('body').setAttribute('class',currVerCode); 
 			  //console.log(currVerCode); 		  
 			  $(".bsv").text(currVerCode)
 		}
-		$("#setbs3").on("click", setVersion); 
-		$("#setbs4").on("click", setVersion); 
-	})(); 
+//		$("#setbs3").on("click", setVersion); 
+//		$("#setbs4").on("click", setVersion); 
+	})();
+	
+	
 		
 </script>
 </html>	

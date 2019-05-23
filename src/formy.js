@@ -51,8 +51,9 @@ var x = {
  },
  createModal: function(obj, cfg){
      var Id = "mdl_"+ Math.ceil(Math.random() * 9999999999999999).toString(32);
-     cfg = $.extend({title:"Title", body:"",
-      size:"",//options: sm, lg or xl
+     cfg = $.extend({title:"Title", body:"", actionButton:true, actionText:"Save Changes",
+      size:"",//options: sm, lg or xl,
+      closeButton:true, closeText:"close",
       animated:"false",
       onAction:function(data, modal){
        console.log(data);
@@ -75,7 +76,11 @@ var x = {
         ).append(
             $("<div>", {"class":"modal-footer"})
                 .append($("<button>", {"class":"btn btn-default", "data-dismiss":"modal"}).html("Close"))
-                .append($("<button>", {"class":"btn btn-primary"}).html("Save Changes"))
+                .each(function(){
+                    if(cfg.actionButton === false) return;
+                   $(this).append($("<button>", {"class":"btn btn-primary"}).html(cfg.actionText))
+                })
+                
         ))
     ).on("hidden.bs.modal", function(){
         $(this).remove(); 
@@ -86,7 +91,6 @@ var x = {
             var forms = [];
             $(this).parent().parent().find("form").each(function(n){
                 forms.push($(this).serializeArray()); 
-                //formdata=[fm]
             }); 
             formdata = (forms.length == 1)? [forms[0]] : [forms, $("#"+Id)];
             var result = cfg.onAction.apply($(this), formdata); 
