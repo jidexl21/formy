@@ -54,7 +54,7 @@ var x = {
      cfg = $.extend({title:"Title", body:"", actionButton:true, actionText:"Save Changes",
       size:"",//options: sm, lg or xl,
       closeButton:true, closeText:"close",
-      animated:"false",
+      animated:false,
       onAction:function(data, modal){
        console.log(data);
        console.log($(this)); 

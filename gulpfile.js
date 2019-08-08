@@ -58,7 +58,7 @@ gulp.task("build", function(done){
         .pipe(replace(/\.{2}\/formy\.js/ig, "../dist/formy.js")).pipe(replace(/\.{2}\/formy\.css/ig, "../dist/formy-min.css"));
      });
      blob_0.pipe(gulp.dest('dist/'))
-     blob_1.pipe(gulp.dest('docs/'))
+     blob_1.pipe(gulp.dest('dist/docs/'))
 
     done(); 
 }); 
