@@ -18,6 +18,10 @@ gulp.task("docs", function(done){
             llist.push(`<a href="${element}">${element}</a>`)
         });
         fs.writeFileSync('./src/docs/examples.html', llist.join("<br/>\r\n")); 
+        gulp.src("./src/docs/**/*")
+        .pipe(replace(/\.\.\/dist/im, ""))
+        .pipe(replace(/formy\.css/im, "formy-min.css"))
+        .pipe(gulp.dest('./dist/docs/'))
     }); 
     fs.readdir("./src/docs/", function (err, files) {
         var llist = []; 
