@@ -1,8 +1,7 @@
 
 <h1>Formy</h1>
 <p>A simple approach to creating HTML forms with BOOTSTRAP</p>
-<hr/>
-![](sample.png)
+<img src="sample.png"/>
 <pre>
 var fm = [
      { label: "&lt;h3&gt;Enter Your Details Here&lt;/h3&gt;", 
