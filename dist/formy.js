@@ -131,7 +131,7 @@ var x = {
                     $(this).append($("<div>", gdef).each(function () {
                         var o = $.extend(def, fm[i]); $.extend(o.typeahead, fm[i].typeahead);
                         var lbl = $('<div/>').text(camelToSentence(fm[i].label)).html();
-                        if(o.type == "file"){hasFile == true; };
+                        if(o.type == "file"){hasFile = true; };
                         if(o.type != "hidden"){
                             $(this).append($("<label>").html(lbl).each(function () {
                                 var cs = '';
@@ -297,10 +297,9 @@ var x = {
 					{$(this).append($("<div>",{"style":"clear:both"}))}
                 }
             }))
-            //if(hasFile){
-                void(0)
-               // obj.find("form").attr("method","post").attr("enctype","multipart/form-data")
-            //}
+            if(hasFile){
+                obj.find("form").attr("method","post").attr("enctype","multipart/form-data")
+            }
         }
 }
 
