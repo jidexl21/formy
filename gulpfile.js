@@ -5,35 +5,26 @@ var buildCfg = require("./src/build-cfg.json");
 var rename = require("gulp-rename"); 
 var cleancss = require("gulp-clean-css");
 var fs = require("fs"); 
-var path = require("path"); 
-    
+var concat = require("gulp-concat");
+var opts = { /* plugin options */ };
+
 var vs = require("./package.json"); 
 
 gulp.task("docs", function(done){
     
     fs.readdir("./src/docs", function (err, files) {
         if(err){console.log(err); return; }
-        var llist = []; 
-        files.filter((o)=>{ return !(o.indexOf(".html") == -1); }).forEach(element => {
-            llist.push(`<a href="${element}">${element}</a>`)
-        });
-        fs.writeFileSync('./src/docs/examples.html', llist.join("<br/>\r\n")); 
-        gulp.src("./src/docs/**/*")
-        .pipe(replace(/\.\.\/dist/im, ""))
-        .pipe(replace(/formy\.css/im, "formy-min.css"))
-        .pipe(gulp.dest('./dist/docs/'))
+       var examples = files.filter(x=>(x.indexOf("index.html") == -1) && x.indexOf('examples.html') == -1 && !(x.indexOf(".html") == -1)).map(x=>`./src/docs/${x}`);
+       examples.sort();
+       gulp.src(examples).pipe(concat('index.html'))
+       .pipe(gulp.dest('./docs'));
+       gulp.src("./src/docs/*.js").pipe(concat('./assets/js/examples.js'))
+       .pipe(gulp.dest('./docs'));
     }); 
-    fs.readdir("./src/docs/", function (err, files) {
-        var llist = []; 
-        files.filter((o)=>{ return !(o.indexOf(".js") == -1); }).forEach(element => {
-            var el = element.replace(/\.js$/i, ""); 
-            llist.push(`<li class="dropdown-item"><a href="javascript:void(0)" data-src="${el}">${el}</a></li>`)
-        });
-        var indx = '<!--@examplesLinks -->\r\n'+llist.join("\r\n")+'\r\n<!--\/@examplesLinks -->';
-        gulp.src("./src/docs/index.html")
-        .pipe(replace(/<!--@examplesLinks -->((.*)(\r\n|\n))*(.*)<!--\/@examplesLinks -->/im, indx))
-        .pipe(gulp.dest('./src/docs/'))
-    })
+    gulp.src("./node_modules/bootstrap/dist/css/bootstrap.min.css").pipe(gulp.dest("./docs/assets/css/"));
+    gulp.src("./src/docs/assets/**/*").pipe(gulp.dest("./docs/assets"));
+    gulp.src("./src/formy.js").pipe(gulp.dest("./docs/"));
+    gulp.src("./src/formy.css").pipe(gulp.dest("./docs/"));
     done(); 
 }); 
 

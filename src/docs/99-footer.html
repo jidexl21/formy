@@ -1,0 +1,163 @@
+
+<script data-id="jquery" src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script data-id="bootstrap" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="formy.js"></script>
+<script type="text/javascript" src="assets/js/examples.js"></script>
+<script type="text/javascript">
+	(function(){
+		var iter = 0; 
+ 
+		function togglebs(){
+		  var script = document.querySelector("[data-id=bootstrap]"); 
+
+		  var all = Object.keys(bsLinks); 
+		  var current = ""; var currScript = "" ; var currVerCode  = ""; 
+		 
+		  var curr = document.getElementById("bootstrap").getAttribute("href"); 
+		 
+		  for(key in bsLinks){
+			if(curr === bsLinks[key]){ 
+				iter++; 
+				currVerCode = all[iter%all.length]; 
+				current = bsLinks[currVerCode];
+				currScript = bsScripts[currVerCode];
+				break;
+				}
+			 currVerCode = (currVerCode) ? currVerCode : all[0];
+			 current = (current)? current: bsLinks[currVerCode]; 
+			 currScript = (currScript)? currScript: bsScripts[currVerCode]; 
+				
+		  }
+		  document.getElementById("bootstrap").setAttribute("href", current);
+		  load_script(bsScripts[currVerCode], function(){ console.log('loaded bs: '+currVerCode)})	  
+		  //script.setAttribute("src", currScript);
+		   document.querySelector('body').setAttribute('class',currVerCode); 
+			console.log(currVerCode); 		  
+		  
+		  //console.log("version set to: "+ all[iter%all.length]); 		  
+		  //var currAttr = curr.getAttribute("href"); 
+		  //console.log(currScript)
+		  $(".bsv").text(currVerCode)
+		}; 
+	
+		var setbs = function(currVerCode){
+			  var script = document.querySelector("[data-id=bootstrap]"); 
+
+			  var current = bsLinks[currVerCode];  var currScript = bsScripts[currVerCode]; 
+			  //var curr = document.getElementById("bootstrap").getAttribute("href"); 
+			 
+			  document.getElementById("bootstrap").setAttribute("href", current);
+			  load_script(bsScripts[currVerCode], function(){ console.log('loaded bs: '+currVerCode)})	  
+			  document.querySelector('body').setAttribute('class',currVerCode); 
+			  console.log(currVerCode); 		  
+			  $(".bsv").text(currVerCode)
+			}; 
+	
+		var loadExample = function(e){
+			var str = $(e.target).data("src"); 
+			var scr =(str)? str+".js":"checkbox.js"; 
+			$(".bs-docs-header").collapse();
+			//clear formArea ...
+			$("#formarea").empty().append(''); 
+			load_script(scr, function(obj){
+				$("pre").empty().append($("<iframe>",{frameborder:'0', width:'100%',height:'300px', src:scr}));
+			}); 
+		}
+		
+		var load_script = function(src, callback) {
+		  var head = document.getElementsByTagName('head')[0];
+
+		  //use class, as we can't reference by id
+		  var element = head.getElementsByClassName("json")[0];
+
+		  try {
+			element.parentNode.removeChild(element);
+		  } catch (e) {
+			//
+		  }
+
+		  var script = document.createElement('script');
+		  script.type = 'text/javascript';
+		  script.src = src;
+		  script.className = "json";
+		  script.async = false;
+		  head.appendChild(script);
+
+		  //call the postload function after a slight delay to allow the json to load
+		  window.setTimeout(function(){
+			callback.apply(this)
+		  }, 100)
+		}
+		
+		var setBs = function(e){ 	
+			e.preventDefault(); 
+			e.stopPropagation(); 
+			console.log($(this).data("bsversion"));
+			localStorage.setItem("bsv", $(this).data("bsversion")); 
+			document.location.reload();
+		}; 
+		
+		$(".versions button").click(setBs); 
+		$("#emenu a").on("click", loadExample); 
+		var setVersion = function(){
+			var currVerCode= $(this).attr("id").replace("set", ""); 
+			  var script = document.querySelector("[data-id=bootstrap]"); 
+			  var current = bsLinks[currVerCode];  var currScript = bsScripts[currVerCode]; 
+			  var curr = $("#bootstrap").attr("href"); 
+				$("#bootstrap").attr("href", current);
+				console.log(current);
+			  load_script(bsScripts[currVerCode], function(){ console.log('loaded bs: '+currVerCode)})	  
+			  document.querySelector('body').setAttribute('class',currVerCode); 
+			  //console.log(currVerCode); 		  
+			  $(".bsv").text(currVerCode)
+		}
+//		$("#setbs3").on("click", setVersion); 
+//		$("#setbs4").on("click", setVersion); 
+	})();	
+		
+</script>
+
+<script>
+		document.write("<script type='application/x-suppress'>");
+		 var bsScripts = { 
+			bs4: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js",
+			bs3:"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+			//,bs2:"https://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"
+		  };
+		var bsLinks = { 
+			bs4: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+			bs3:"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+			//,bs2:"https://stackpath.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+		  };
+		function loadBS(code)
+		{
+			var currVerCode = code;  
+			//load CSS
+			var current = bsLinks[currVerCode];
+			var curr = $("#bootstrap").attr("href"); 
+			$("#bootstrap").attr("href", current); $('body').attr("class",currVerCode); 
+			console.log(currVerCode + ": "+current); 		  
+			$(".bsv").text(currVerCode)
+			// load scripts
+			var runSecond = document.createElement("script");
+			runSecond.setAttribute("src", bsScripts[code]); 
+			//console.log(bsScripts[code]);
+			document.body.appendChild(runSecond);
+			if(code==="bs4"){
+				var popperSrc = document.createElement("script");
+				popperSrc.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"); 
+				document.body.appendChild(popperSrc);
+			}
+			
+			
+			
+
+
+			
+		}
+		$(document).ready(function(){
+			var cv = localStorage.getItem("bsv"); 
+			if(!cv){ loadBS("bs3");}else{	loadBS(cv); }
+		})
+</script>
+</html>	

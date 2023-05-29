@@ -1,4 +1,4 @@
-var checkboxForm = [
+var fm = [
     { label: "<h3>Which of the options is the tallest mountain in Africa?</h3>", type:"titlebox", attrs:{"class":"text-left"}},
     { label: "Mt. Everest", name: "mt", type:"radio"}, 
     { label: "Mt. Kilimanjaro", name: "mt", type:"radio", attrs:{"float":"left"}}, 
@@ -8,5 +8,4 @@ var checkboxForm = [
     { label: "<hr/>", type:"titlebox",attrs:{"class":"col-sm-12"}},
     { label: "Enable Shortcuts", type:"switch"},
    ];
-    $("#checkbox-formarea").formy("createForm", checkboxForm, { type: "horizontal", colratio: "1:3" });
-    
+    $("#formarea").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });

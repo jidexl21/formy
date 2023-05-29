@@ -1,0 +1,29 @@
+
+<div class ="container">
+<div class="row">
+	<div class="col-sm-12">
+		<h1>Checkboxes and Radio buttons</h1>
+	</div>
+	<div class="col-sm-6">
+		<div id="checkbox-formarea" class="panel panel-heading"></div>
+	</div>
+	<div class="col-sm-6">
+	<div class="panel panel-heading">
+		<h3>Source</h3>
+	<pre>
+        var fm = [
+     { label: "&lt;h3&gt;Which of the options is the tallest mountain in Africa?&lt;/h3&gt;", type:"titlebox", attrs:{"class":"text-left"}},
+     { label: "Mt. Everest", name: "mt", type:"radio"}, 
+     { label: "Mt. Kilimanjaro", name: "mt", type:"radio", attrs:{"float":"left"}}, 
+     { label: "Mt. Everest", name: "mt", type:"radio"},
+     { label: "&lt;h3&gt;Other Settings&lt;/h3&gt;", type:"titlebox",attrs:{"class":"col-sm-12"}},
+     { label: "Allow Cookies?", type:"checkbox"},
+     { label: "&lt;hr&gt;", type:"titlebox",attrs:{"class":"col-sm-12"}},
+     { label: "Enable Shortcuts", type:"switch"},
+	];
+     $("#checkbox-formarea").formy("createForm", fm, { type: "horizontal", colratio: "1:3" });
+	</pre>
+	</div>
+	</div>
+</div>
+</div>
