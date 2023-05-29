@@ -22,6 +22,7 @@ gulp.task("docs", function(done){
        .pipe(gulp.dest('./docs'));
     }); 
     gulp.src("./node_modules/bootstrap/dist/css/bootstrap.min.css").pipe(gulp.dest("./docs/assets/css/"));
+    gulp.src("./node_modules/bootstrap4/dist/css/bootstrap.min.css").pipe(gulp.dest("./docs/assets/css/bootstrap4.min.css"));
     gulp.src("./src/docs/assets/**/*").pipe(gulp.dest("./docs/assets"));
     gulp.src("./src/formy.js").pipe(gulp.dest("./docs/"));
     gulp.src("./src/formy.css").pipe(gulp.dest("./docs/"));
