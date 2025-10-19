@@ -1,6 +1,6 @@
 {
   "name": "formyx",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "JQuery forms plugin",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "dependencies": {
     "bootstrap": "^3.4.1",
     "jquery": "^3.3.1"
-  },
+  }
   "devDependencies": {
     "gulp": "^4.0.0",
     "gulp-clean-css": "^4.0.0",
