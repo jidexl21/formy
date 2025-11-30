@@ -170,7 +170,7 @@ var x = {
                             case "daterange":
                                 var c = o.name.split(","); var end = (c.length > 1) ? c[1] : "";
                                 var v = o.value.split(","); var val2 = (v.length > 1) ? v[1] : "";
-                                var i1 = { type: "text", "class": "form-control", name: c[0], value:v[0] }
+                                var i1 = { type: "text", "class": "form-control", name: c[0], value:v[1] }
                                 var i2 = { type: "text", "class": "form-control", name: v[0], value:v[1] }
                                 el = $("<div>", { "class": "input-daterange input-group", "data-date-format": o.format })
                                     .append($("<input>", i1))
